@@ -59,7 +59,7 @@ export default function SurfaceArchive({ mission: m }) {
                 </span>
               }
             >
-              <PanoramaViewer src={pano.src} verticalFocus={pano.focus} />
+              <PanoramaViewer src={pano.src} verticalFocus={pano.focus} onUnavailable={() => setPanorama(false)} />
             </Suspense>
           ) : (
             <ArchivePhotoScene

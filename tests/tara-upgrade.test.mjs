@@ -53,8 +53,10 @@ test('name aliases preserve unrelated words and audio gain remains bounded',()=>
  assert.equal(cleanSpokenNames('Мухаммад Али'),'Мухаммад Али');
  const quiet=prepareSpeechAudio(Float32Array.of(.01,-.02));assert.ok(quiet[0]>.01);assert.ok(Math.max(...prepareSpeechAudio(Float32Array.of(2,-2)))<=1);
 });
-test('team names are withheld and lunar catalog entries are identified honestly',()=>{
- assert.match(creatorProfileAnswer('Кто в вашей команде?'),/конфиденциальны/);
+test('published team credits distinguish development from research, and lunar catalog entries are identified honestly',()=>{
+ assert.match(creatorProfileAnswer('Кто в вашей команде?'),/единственный разработчик/);
+ assert.match(creatorProfileAnswer('Кто в вашей команде?'),/Мукумова Сабрина/);
+ assert.match(creatorProfileAnswer('Who is on your team?','en'),/Sabrina Mukumova/);
  const action=resolveSiteAction('покажи Луноход 2',{robots:[{id:'lunokhod',name:'Lunokhod 1 & 2',world:'moon'}],lang:'ru'});
  assert.equal(action.entity,'lunokhod');assert.match(action.explanation,/общая карточка/);
 });

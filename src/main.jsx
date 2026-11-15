@@ -55,6 +55,7 @@ import "./style-orbital.css";
 import "./style-readability.css";
 import "./style-header-final.css";
 import "./style-visual-repair.css";
+import "./style-release.css";
 import "./components/DawnInspection.css";
 import HeroMedia from "./components/HeroMedia";
 import { t, useLanguage } from "./i18n";
@@ -144,8 +145,11 @@ function Explorer() {
   useEffect(() => {
     state.select(key);
     setDescent(null);
+    setBriefing(false);
+    timer.current = null;
     return () => {
       clearTimeout(timer.current);
+      timer.current = null;
       useExplorerStore.setState({
         descending: false,
       });
@@ -153,7 +157,7 @@ function Explorer() {
   }, [key]);
   // Focus the chosen landing site, show a brief approach animation, then open its story page.
   const enter = (id) => {
-    if (timer.current) return;
+    if (timer.current != null) return;
     const m = getMission(id);
     if (!m) return;
     if (!Number.isFinite(m.lat) || !Number.isFinite(m.lon)) {
@@ -166,7 +170,7 @@ function Explorer() {
       descending: true,
     });
     timer.current = setTimeout(
-      () => navigate("/surface/" + id),
+      () => { timer.current = null; navigate("/surface/" + id); },
       matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 850,
     );
   };
@@ -486,7 +490,8 @@ function Archive() {
   useEffect(() => { setFilter(["moon","mars","deep-space"].includes(params.get("world")) ? params.get("world") : "all"); }, [params]);
   const saved = (() => {
     try {
-      return JSON.parse(localStorage.getItem("mars-explorer-saved") || "[]");
+      const stored = JSON.parse(localStorage.getItem("mars-explorer-saved") || "[]");
+      return Array.isArray(stored) ? stored : [];
     } catch {
       return [];
     }

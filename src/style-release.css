@@ -1,0 +1,59 @@
+/* Final review: photographic navigation, clear contributor roles, contained explorers. */
+.about-page-v2 .about-page-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.about-page-v2 .about-page-card{min-height:435px;padding:0 0 25px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#192e40,#0c1928);box-shadow:0 12px 35px #02070e20}
+.about-page-v2 .about-page-card:hover{border-color:#a1dcf299;background:linear-gradient(145deg,#223d51,#102333);box-shadow:0 20px 48px #0004}
+.about-card-image{height:180px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 60% 40%,#344b5b,#0b1926)}
+.about-card-image:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#142637,transparent 65%)}
+.about-card-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:saturate(.95)}
+.about-page-card:hover .about-card-image img{transform:scale(1.055)}
+.about-page-card[href='/concepts'] .about-card-image img{object-fit:contain}
+.about-card-image>span{position:absolute;z-index:1;top:16px;right:20px;font:500 30px/1 var(--font-display);color:#fff9}
+.about-page-v2 .about-page-card-top{padding:18px 24px 0}
+.about-page-v2 .about-page-card h3{padding:0 24px;margin:20px 0 12px;font-size:clamp(27px,2.5vw,35px)}
+.about-page-v2 .about-page-card p{padding:0 24px;font-size:14px;line-height:1.8;color:#c2d1df}
+.about-page-v2 .about-page-open{padding:24px 24px 0;margin-top:auto;color:#b3e7f6;font-size:12px;display:flex;align-items:center;gap:12px}
+.about-page-v2 .creator-profile{border-color:#e4be8666;background:radial-gradient(ellipse at 85% 40%,#53432b55,transparent 60%),linear-gradient(120deg,#132b3d,#0d1b29);border-radius:20px}
+.about-page-v2 .creator-profile-copy>.eyebrow{color:#edc995}
+.about-page-v2 .creator-profile-copy>p{font-size:16px;line-height:1.9;max-width:720px}
+.project-team{padding:90px 0 30px}
+.team-captain{display:grid;grid-template-columns:170px 1fr;gap:38px;padding:36px;border:1px solid #8ecfe94a;border-radius:18px;background:linear-gradient(130deg,#223b50,#142536);margin:32px 0 24px}
+.team-monogram{aspect-ratio:1;border-radius:50%;border:1px solid #94dcf568;display:flex;align-items:center;justify-content:center;position:relative;font:500 54px/1 var(--font-display);background:radial-gradient(circle,#94cee928,transparent 70%);color:#c9edfb;align-self:center}
+.team-monogram>span{position:absolute;bottom:20px;font:500 9px/1.3 var(--font-ui);letter-spacing:1px}
+.team-captain h3{font:500 clamp(30px,3.5vw,46px)/1.15 var(--font-display);margin:16px 0;color:#f4f1e9}
+.team-captain p,.team-contributors p{font-size:15px;line-height:1.85;color:#c1d0dd}
+.team-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.team-tags>span{border:1px solid #93cee533;background:#8ccfea0b;color:#c6e9f5;border-radius:30px;padding:8px 12px;font-size:11px}
+.team-contributors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.team-contributors article{padding:28px;border:1px solid #b4d7ef29;border-radius:16px;background:linear-gradient(145deg,#1b3041,#101e2d)}
+.team-member-top{display:flex;gap:20px;align-items:center;justify-content:space-between;color:#a9bfce}
+.team-initials{display:grid;place-items:center;border:1px solid #a3d8ec4a;border-radius:50%;width:44px;height:44px;font-size:15px;color:#d3eaf5}
+.team-member-top small{font-size:10px;letter-spacing:1px}
+.team-contributors h3{font:500 29px/1.2 var(--font-display);margin:25px 0 10px;color:#eef3f5}
+.team-role{color:#a8d8e9;font-size:12px}
+.team-contributors p{font-size:14px;margin:16px 0 0}
+.orbit-scene .space-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:auto}
+.explorer-page .orbit-worlds>a{min-width:125px;min-height:66px;gap:12px;border-radius:12px;border:1px solid #accfe03b;background:linear-gradient(135deg,#21374b,#102033);font-size:14px;color:#dbe9f2;box-shadow:0 8px 20px #0002;transition:transform .2s,border-color .2s}
+.explorer-page .orbit-worlds>a.selected{border-color:#e9c99a99;background:linear-gradient(135deg,#344250,#152637);color:#ffe0ae}
+.explorer-page .orbit-worlds>a:hover{border-color:#b6e3f5;transform:translateY(-3px)}
+.explorer-page .orbit-worlds .orbit-world-thumb{width:40px!important;height:40px!important;flex-shrink:0}
+.site-card{border-radius:16px;overflow:hidden;border:1px solid #a9cfe42e;background:linear-gradient(140deg,#1a2d40,#0d1c2c);box-shadow:0 12px 30px #0002;transition:transform .2s,border-color .2s}
+.site-card:hover{border-color:#a4d7ef88;transform:translateY(-4px)}
+.site-image img{transition:transform .5s;filter:brightness(.98)}
+.site-card:hover .site-image img{transform:scale(1.025)}
+.site-card-info{min-width:0}
+.site-card-info h3{gap:10px}.site-card-info h3 button{flex-shrink:0}
+.compatibility-globe{overflow:visible;animation:none!important;outline-offset:10px}
+.compatibility-globe:focus-visible{outline:2px solid #b2e7ff}
+.explorer-page .orbit-tools .view-mode-button{width:auto;min-width:100px;padding:10px 16px;height:auto;min-height:40px}
+.explorer-page .orbit-tools button{min-width:36px;min-height:36px}
+.cylinder-tools button,.photo-scene-tools button{min-width:32px;min-height:32px;align-items:center;justify-content:center}
+.cylinder-viewer{background:#0e1821}
+.site-main-content :is(button,a):focus-visible{outline:2px solid #b9e9ff;outline-offset:4px}
+@media(max-width:1000px){.about-page-v2 .about-page-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.explorer-page .orbit-worlds>a{min-width:94px;min-height:58px;padding:10px;font-size:12px}.explorer-page .orbit-worlds .orbit-world-thumb{width:30px!important;height:30px!important}}
+@media(max-width:620px){.about-page-v2 .about-page-grid,.team-contributors{grid-template-columns:1fr}.about-page-v2 .about-page-card{min-height:390px}.about-card-image{height:190px}.team-captain{grid-template-columns:1fr;padding:26px;gap:20px}.team-monogram{width:120px}.team-monogram>span{bottom:13px;font-size:8px}.project-team{padding-top:64px}.team-contributors article{padding:24px}.explorer-page .orbit-worlds{right:5%;left:5%;gap:7px}.explorer-page .orbit-worlds>a{min-width:0;flex:1;justify-content:center}.explorer-page .orbit-tools{bottom:98px;flex-wrap:wrap;justify-content:flex-end;max-width:90%}.explorer-page .orbit-tools>span{width:100%;text-align:right}.explorer-page .site-image{height:230px}.about-page-v2 .creator-profile-copy>p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.about-card-image img,.site-card,.explorer-page .orbit-worlds>a{transition:none}}
+/* Avoid centering an overflowing single-row nav, which made its edge links unreachable. */
+@media(min-width:1251px) and (max-width:1550px){:root{--site-header-height:112px}.site-shell-header{grid-template-columns:1fr auto;column-gap:12px}.site-brand{min-height:60px}.site-header-controls{grid-column:2}.site-header-nav{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-bottom:8px}.site-header-nav a{font-size:14px;padding:9px 13px}}
+/* Keep viewer controls clear of the companion dock in the bottom-right corner. */
+.surface-immersive.has-panorama .cylinder-tools{left:50%;right:auto;bottom:30px;transform:translateX(-50%);max-width:calc(100% - 40px);z-index:6}
+@media(max-width:900px){.surface-immersive.has-panorama .cylinder-tools{left:5%;transform:none;bottom:110px;gap:3px}.surface-immersive.has-panorama .cylinder-tools>span{display:none}}

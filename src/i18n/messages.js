@@ -1,3 +1,4 @@
+import {releaseMessages} from './releaseMessages';
 import {orbitalMessages} from './orbitalMessages';
 import {immersiveMessages} from './immersiveMessages';
 import {expansionMessages} from './expansionMessages';
@@ -287,3 +288,5 @@ Object.assign(messages, expansionMessages);
 Object.assign(messages, immersiveMessages);
 
 Object.assign(messages,orbitalMessages);
+
+Object.assign(messages,releaseMessages);

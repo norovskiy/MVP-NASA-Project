@@ -10,6 +10,7 @@ export default function ArchivePhotoScene({ src, alt }) {
     [position, setPosition] = useState([50, 18]),
     [moving, setMoving] = useState(false),
     [failed, setFailed] = useState(false);
+  useEffect(() => { setFailed(false); setZoom(1); setPosition([50,18]); setMoving(false); }, [src]);
   useEffect(() => {
     const node = host.current;
     const observer = new IntersectionObserver(([entry]) =>

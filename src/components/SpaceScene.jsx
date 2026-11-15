@@ -67,7 +67,7 @@ function Marker({ mission, onEnter }) {
   );
 }
 function CameraRig({ controls }) {
-  const { camera } = useThree();
+  const { camera, invalidate } = useThree();
   const { planet, reset, focus, descending } = useExplorerStore();
   useEffect(() => {
     const c = controls.current;
@@ -92,6 +92,7 @@ function CameraRig({ controls }) {
       duration: reduced ? 0 : descending ? 1.15 : 1.5,
       ease: "power3.inOut",
       onUpdate: () => {
+        invalidate();
         camera.lookAt(0, 0, 0);
         if (!descending) c.update();
       },
@@ -99,11 +100,12 @@ function CameraRig({ controls }) {
         if (!descending) c.enabled = true;
       },
     });
+    invalidate();
     return () => {
       anim.kill();
       c.enabled = true;
     };
-  }, [planet, reset, focus, descending, camera, controls]);
+  }, [planet, reset, focus, descending, camera, controls, invalidate]);
   return null;
 }
 function World({ onEnter, onContextLost }) {

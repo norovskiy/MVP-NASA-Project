@@ -2,7 +2,7 @@ import {normalize} from './commands.js';
 // Facts explicitly supplied by the creator. Do not infer an extended biography.
 export function creatorProfileAnswer(question,lang='ru'){
  const q=normalize(question);
- if(/(?:имена|участник|кто.*(?:команд|групп)|ваш.*(?:команд|групп)|наш.*(?:команд|групп)|team members|your team|who.*team)/.test(q))return lang==='ru'?'Имена участников команды конфиденциальны: по их просьбе я их не раскрываю. Публично как автор указан Норов Мухаммад.':'Team members’ names are confidential at their request. Norov Muhammad is publicly credited as the author.';
+ if(/(?:имена|участник|кто.*(?:команд|групп)|ваш.*(?:команд|групп)|наш.*(?:команд|групп)|team members|your team|who.*team)/.test(q))return lang==='ru'?'Норов Мухаммад — единственный разработчик сайта. Мукумова Сабрина — капитан команды: собирала данные о 12 объектах Марса и переводила их на три языка. Рамихудоева Сабзбахор, Вазирова Сумая, Холикова Нозанин и Кудратова Мехрона помогали с информацией для проекта.':'Norov Muhammad is the sole website developer. Sabrina Mukumova is the team captain; she collected data on 12 Mars objects and translated it into three languages. Sabzbahor Ramikhudoeva, Sumaya Vazirova, Nozanin Kholikova and Mehrona Kudratova contributed information for the project.';
  if(!/норов|norov|мухаммад|muhammad|mukhammad|кто тебя создал|кто твой создатель|who (?:created|made|built) you|your creator|твоего создателя|твоем создателе/.test(q))return null;
  if(/^(?:покажи|открой|show|open)/.test(q))return null;
  const ru=lang==='ru';

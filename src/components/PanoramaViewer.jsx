@@ -4,7 +4,7 @@ import { t } from '../i18n';
 
 // Cylindrical source -> perspective view. Vertical gaps remain unfilled.
 // This is a camera turn in a historical mosaic, not movement through 3D terrain.
-export default function PanoramaViewer({ src, verticalFocus = .28 }) {
+export default function PanoramaViewer({ src, verticalFocus = .28, onUnavailable }) {
   const canvas = useRef(null), image = useRef(null), drag = useRef(null);
   const [yaw, setYaw] = useState(0), [fov, setFov] = useState(70);
   const [vertical, setVertical] = useState(verticalFocus);
@@ -12,10 +12,10 @@ export default function PanoramaViewer({ src, verticalFocus = .28 }) {
   const [size, setSize] = useState([900, 440]);
   useEffect(() => {
     let active = true;
-    setReady(false); setFailed(false);
+    setReady(false); setFailed(false); setYaw(0); setFov(70); setVertical(verticalFocus);
     const img = new Image();
     img.onload = () => { if (active) { image.current = img; setReady(true); } };
-    img.onerror = () => { if (active) setFailed(true); };
+    img.onerror = () => { if (active) { setFailed(true); onUnavailable?.(); } };
     img.src = src;
     const node = canvas.current;
     const observer = new ResizeObserver(entries => {
@@ -24,7 +24,7 @@ export default function PanoramaViewer({ src, verticalFocus = .28 }) {
     });
     if (node) observer.observe(node);
     return () => { active = false; observer.disconnect(); };
-  }, [src]);
+  }, [src, verticalFocus]);
   useEffect(() => {
     if (!ready || !canvas.current) return;
     const id = requestAnimationFrame(() => {
@@ -33,6 +33,7 @@ export default function PanoramaViewer({ src, verticalFocus = .28 }) {
       const h = Math.round(w * size[1] / size[0]);
       node.width = w; node.height = h;
       const ctx = node.getContext('2d');
+      if (!ctx || !img?.naturalWidth) return;
       ctx.fillStyle = '#050709'; ctx.fillRect(0, 0, w, h);
       const focal = w / (2 * Math.tan(fov * Math.PI / 360));
       const pixelsPerRadian = img.naturalWidth / (2 * Math.PI);
@@ -43,7 +44,10 @@ export default function PanoramaViewer({ src, verticalFocus = .28 }) {
         const sourceWidth = Math.max(1, 2 * pixelsPerRadian * Math.cos(theta) ** 2 / focal);
         const sx = u * img.naturalWidth;
         const sw = Math.min(sourceWidth, img.naturalWidth - sx);
-        ctx.drawImage(img, sx, 0, sw, img.naturalHeight, x, h * .42 - img.naturalHeight * scale * vertical, 2.1, img.naturalHeight * scale);
+        const renderedHeight = img.naturalHeight * scale;
+        const desiredTop = h * .42 - renderedHeight * vertical;
+        const top = renderedHeight >= h ? Math.max(h - renderedHeight, Math.min(0, desiredTop)) : (h - renderedHeight) / 2;
+        ctx.drawImage(img, sx, 0, sw, img.naturalHeight, x, top, 2.1, renderedHeight);
       }
     });
     return () => cancelAnimationFrame(id);
