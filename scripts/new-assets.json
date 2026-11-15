@@ -1,0 +1,38 @@
+[
+  {
+    "id": "spirit",
+    "page": "https://science.nasa.gov/resource/spirit-mars-rover-in-mcmurdo-panorama-2/",
+    "unavailable_4k": true
+  },
+  {
+    "id": "insight",
+    "page": "https://science.nasa.gov/photojournal/insights-final-selfie/",
+    "source": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia25/pia25287/PIA25287.jpg",
+    "width": 4391,
+    "height": 2635
+  },
+  {
+    "id": "apollo15",
+    "page": "https://science.nasa.gov/resource/apollo-15-mission-image-view-of-the-apollo-lunar-surface-experiments-package-alsep/",
+    "source": "https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/2023/09/as15-85-11471_orig.jpg",
+    "width": 3903,
+    "height": 4000
+  },
+  {
+    "id": "ingenuity",
+    "page": "https://science.nasa.gov/resource/perseverances-selfie-with-ingenuity/",
+    "source": "https://assets.science.nasa.gov/content/dam/science/psd/mars/downloadable_items/4/5/45946_PIA24542-Looking-At-Helicopter-Figure-2.jpg",
+    "width": 5439,
+    "height": 4000
+  },
+  {
+    "id": "pathfinder",
+    "page": "https://science.nasa.gov/mission/mars-pathfinder/",
+    "unavailable_4k": true
+  },
+  {
+    "id": "viking1",
+    "page": "https://science.nasa.gov/resource/sand-dunes-and-large-rocks-revealed-by-viking-1/",
+    "unavailable_4k": true
+  }
+]

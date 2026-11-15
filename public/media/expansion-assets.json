@@ -1,0 +1,13 @@
+{
+  "apollo12": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/a/as12-48-7134.jpg",
+  "apollo14": "https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/2023/09/as14-67-09361_orig.jpg",
+  "apollo16": "https://www.nasa.gov/wp-content/uploads/2022/04/apollo_16_landing_17_eva1_far_uv_camera_as16-114-18439.jpg",
+  "dawn": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/p/i/PIA12031_hires.jpg",
+  "near": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/07/nearspacecraft.jpg",
+  "kepler": "https://images-assets.nasa.gov/image/PIA18904/PIA18904~large.jpg",
+  "pioneer10": "https://assets.science.nasa.gov/content/dam/science/psd/solar/internal_resources/731/Illustrated_Pioneer_10_at_Jupiter.jpeg",
+  "pioneer11": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/07/Pioneer11_1600.jpg",
+  "rocknest-cylinder": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia1/pia16/pia16227/PIA16227.jpg",
+  "erebus-cylinder": "https://assets.science.nasa.gov/content/dam/science/psd/mars/downloadable_items/3/37456_Sol652_Erebus-PIA03270.jpg",
+  "mcmurdo-cylinder": "https://assets.science.nasa.gov/content/dam/science/psd/mars/downloadable_items/3/6/36529_PIA16440_McMurdo_Merged_Cyl_L456atc_br2.jpg"
+}

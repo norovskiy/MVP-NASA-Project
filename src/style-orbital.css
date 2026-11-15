@@ -1,0 +1,615 @@
+/* Mars B -> Moon A -> Dawn/Ceres A. Every hero layer is clipped to one sticky stage. */
+.scroll-journey {
+  min-height: 420svh;
+  background: #030508;
+}
+.journey-stage .journey-copy {
+  background: none !important;
+  padding-right: 0 !important;
+  width: min(38vw, 530px) !important;
+  left: 6.5% !important;
+  top: 43% !important;
+}
+.journey-stage .journey-copy h1 {
+  font-size: clamp(54px, 5.6vw, 86px) !important;
+  line-height: 1 !important;
+  text-shadow: 0 2px 22px #0005;
+}
+.journey-stage .journey-copy h1 em {
+  color: #dbc4ad;
+}
+.journey-stage .journey-description {
+  font-size: 11px;
+  max-width: 370px;
+  color: #b7bcc4;
+  line-height: 1.9;
+}
+.journey-stage .journey-eyebrow {
+  color: #d1aa7c;
+  font-size: 8px !important;
+  letter-spacing: 1.9px !important;
+}
+.journey-stage .journey-awaits-label {
+  font-size: 7px;
+  color: #a88c71;
+}
+.journey-stage .journey-previews {
+  gap: 10px 17px;
+}
+.journey-stage .journey-previews > div {
+  font-size: 8px;
+  gap: 6px;
+}
+.journey-stage .journey-previews svg {
+  width: 12px;
+  height: 12px;
+  color: #c6a887;
+}
+.journey-stage .journey-swipe {
+  font-size: 6px !important;
+  letter-spacing: 1.7px;
+  color: #84919e;
+}
+.dawn-arrival {
+  left: 48%;
+  top: 27%;
+  height: 52%;
+  width: 49%;
+  transform-origin: 70% 62%;
+  filter: none;
+  z-index: 2;
+}
+.dawn-arrival img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.journey-chapters {
+  display: block;
+  gap: 0;
+  position: absolute;
+  left: 6.5%;
+  right: 6.5%;
+  bottom: 34px;
+  z-index: 5;
+  pointer-events: none;
+  --journey-progress: 0;
+}
+.journey-current {
+  margin-bottom: 19px;
+}
+.journey-current [hidden] {
+  display: none;
+}
+.journey-current span {
+  display: block;
+  font: 500 8px var(--font-ui);
+  letter-spacing: 2px;
+  color: #c3a88b;
+  text-transform: uppercase;
+}
+.journey-current strong {
+  display: block;
+  font: 400 21px/1.4 var(--font-display);
+  color: #bcc6d0;
+  margin-top: 8px;
+}
+.journey-chapters nav {
+  display: flex;
+  gap: 26px;
+  pointer-events: auto;
+}
+.journey-chapters button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 0 12px;
+  color: #697c8e;
+  font: 400 9px var(--font-ui);
+  letter-spacing: 1.1px;
+  transition: color 0.25s;
+}
+.journey-chapters button span {
+  font-size: 6px;
+  color: #566776;
+}
+.journey-chapters button[aria-current="step"] {
+  color: #e4c4a2;
+}
+.journey-chapters button:hover {
+  color: #f0dfce;
+}
+.journey-progress-track {
+  height: 1px;
+  max-width: 380px;
+  background: #afc0d329;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.journey-progress-track i {
+  display: block;
+  transform: scaleX(var(--journey-progress));
+  transform-origin: left;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #e0b98e, #acbdcc);
+  will-change: transform;
+}
+/* Deep Space B is an environment. Inspection controls live on the selected mission page. */
+.deep-space-page.deep-variant-b {
+  width: 100%;
+  max-width: none;
+  padding-top: 75px;
+  background: #030609;
+}
+.deep-b-stage {
+  position: relative;
+  height: calc(100svh - 75px);
+  min-height: 760px;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 88% 16%, #af7a3c0d, transparent 35%),
+    linear-gradient(120deg, #030609, #05070a);
+}
+.deep-b-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.65;
+  background:
+    radial-gradient(1px 1px at 15% 16%, #c0d4e477, transparent),
+    radial-gradient(1px 1px at 76% 47%, #b7d2ecaa, transparent),
+    radial-gradient(1px 1px at 82% 32%, #a7bfde88, transparent),
+    radial-gradient(1px 1px at 66% 8%, #dfd3c18c, transparent),
+    radial-gradient(1px 1px at 91% 77%, #aec6df88, transparent),
+    radial-gradient(1px 1px at 45% 71%, #afc6e877, transparent),
+    radial-gradient(1px 1px at 23% 55%, #c4d3e855, transparent),
+    radial-gradient(1px 1px at 59% 39%, #cadff577, transparent),
+    radial-gradient(1px 1px at 93% 19%, #c6e1fa77, transparent);
+}
+.deep-b-sun {
+  position: absolute;
+  left: 88%;
+  top: 16%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    #fff9e3 0 1px,
+    #ffe2b9bd 2px,
+    #e8bc7d35 8px,
+    #b57d3612 35px,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+.deep-b-heading {
+  position: absolute;
+  left: 7%;
+  top: 15%;
+  width: 35%;
+  z-index: 3;
+}
+.deep-b-heading .eyebrow {
+  font-size: 8px;
+  letter-spacing: 2.2px;
+  color: #a98c6f;
+}
+.deep-b-heading h1 {
+  font: 400 clamp(64px, 6.8vw, 108px)/1 var(--font-display);
+  margin: 25px 0;
+  color: #edeae5;
+  letter-spacing: -3px;
+}
+.deep-b-heading h1 em {
+  color: #cead86;
+}
+.deep-b-heading > p {
+  max-width: 350px;
+  font: 400 11px/1.9 var(--font-ui);
+  color: #8d9eae;
+}
+.deep-b-heading .destination-links {
+  margin-top: 24px;
+  gap: 17px;
+}
+.deep-b-heading .destination-links > * {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 0;
+  font-size: 9px;
+  color: #718697;
+}
+.deep-b-heading .destination-links > [aria-current="page"] {
+  color: #e4c6a4;
+  border-bottom: 1px solid #ba9b74;
+}
+.deep-b-craft {
+  position: absolute;
+  left: 45%;
+  right: 2%;
+  top: 13%;
+  bottom: 20%;
+  z-index: 2;
+}
+.cinematic-craft {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  --craft-play: running;
+}
+.cinematic-craft > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: observatory-drift 25s ease-in-out infinite alternate;
+  animation-play-state: var(--craft-play);
+  will-change: transform;
+}
+.cinematic-craft.is-paused > img {
+  animation-play-state: paused;
+}
+@keyframes observatory-drift {
+  from {
+    transform: translate3d(-0.7%, 0.7%, 0) scale(0.98) rotate(-0.4deg);
+  }
+  to {
+    transform: translate3d(0.7%, -0.7%, 0) scale(1.025) rotate(0.4deg);
+  }
+}
+.cinematic-pause {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 13px;
+  border: 1px solid #bfd0df28;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #050a0fc9;
+  color: #a8bdce;
+}
+.deep-b-selected {
+  position: absolute;
+  left: 7%;
+  bottom: 23%;
+  max-width: 32%;
+  z-index: 3;
+}
+.deep-b-selected .eyebrow {
+  font-size: 6px;
+  letter-spacing: 1.4px;
+  color: #8b9baa;
+}
+.deep-b-selected h2 {
+  font: 400 36px/1.1 var(--font-display);
+  margin: 13px 0 8px;
+}
+.deep-b-selected > p {
+  font: 400 10px/1.7 var(--font-ui);
+  color: #8c9fae;
+  margin: 0 0 24px;
+}
+.deep-b-selected .primary {
+  background: #c8a47c;
+  color: #11100d;
+  border: 1px solid #debb94;
+  border-radius: 2px;
+  min-height: 46px;
+  padding: 14px 20px;
+  font-size: 9px;
+  gap: 35px;
+}
+.deep-b-selected .primary:hover {
+  background: #e0c3a3;
+}
+.deep-b-credit {
+  position: absolute;
+  bottom: 19%;
+  right: 6%;
+  max-width: 45%;
+  font: 400 6px/1.7 var(--font-ui);
+  letter-spacing: 1.3px;
+  color: #697c8c;
+  z-index: 3;
+}
+.deep-b-credit > span {
+  display: block;
+  color: #9b9c98;
+  letter-spacing: 0.2px;
+  font-size: 7px;
+  margin-top: 5px;
+}
+.deep-b-tabs {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 35px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  z-index: 4;
+}
+.deep-b-tabs button {
+  position: relative;
+  text-align: left;
+  background: #0a1016ab;
+  border: 1px solid #8fa5ba26;
+  padding: 18px 16px 16px;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 9px;
+}
+.deep-b-tabs button > span {
+  font: 400 7px var(--font-ui);
+  color: #687f90;
+}
+.deep-b-tabs strong {
+  font: 400 12px var(--font-ui);
+  color: #b5c3ce;
+  font-weight: 400;
+}
+.deep-b-tabs small {
+  grid-column: 2;
+  font: 400 5px/1.6 var(--font-ui);
+  letter-spacing: 0.8px;
+  color: #647d90;
+}
+.deep-b-tabs button[aria-pressed="true"] {
+  border-color: #a68b6799;
+  background: #261e164d;
+  box-shadow: inset 0 1px #d2b38b;
+}
+.deep-b-tabs button[aria-pressed="true"] strong {
+  color: #f2d7b5;
+}
+.deep-b-tabs button:hover {
+  border-color: #a9c2d166;
+}
+.deep-variant-b .deep-collection {
+  width: 86%;
+  max-width: 1420px;
+  margin: 90px auto;
+}
+.deep-variant-b .deep-card {
+  background: #080f16;
+}
+.deep-variant-b .deep-card figure {
+  height: 240px;
+}
+.deep-variant-b .deep-card figure img {
+  object-fit: cover;
+}
+@media (max-width: 900px) {
+  .journey-stage .journey-copy {
+    width: 43vw !important;
+    left: 6% !important;
+  }
+  .journey-stage .journey-copy h1 {
+    font-size: 58px !important;
+  }
+  .deep-b-stage {
+    min-height: 800px;
+  }
+  .deep-b-heading {
+    width: 42%;
+    top: 13%;
+  }
+  .deep-b-heading h1 {
+    font-size: 72px;
+  }
+  .deep-b-selected {
+    max-width: 39%;
+    bottom: 26%;
+  }
+  .deep-b-craft {
+    left: 39%;
+    right: -4%;
+    top: 17%;
+    bottom: 20%;
+  }
+  .deep-b-tabs {
+    left: 5%;
+    right: 5%;
+    gap: 6px;
+  }
+  .deep-b-tabs button {
+    padding: 14px 8px;
+    gap: 7px;
+    grid-template-columns: 10px 1fr;
+  }
+  .deep-b-tabs strong {
+    font-size: 10px;
+  }
+  .deep-b-tabs small {
+    font-size: 4px;
+  }
+}
+@media (max-width: 620px) {
+  .scroll-journey {
+    min-height: 440svh;
+  }
+  .journey-stage .journey-copy {
+    left: 6% !important;
+    top: 18% !important;
+    transform: none !important;
+    width: 88vw !important;
+  }
+  .journey-stage .journey-copy h1 {
+    font-size: 47px !important;
+    line-height: 0.97 !important;
+  }
+  .journey-stage .journey-description {
+    max-width: 300px;
+    font-size: 9px;
+    line-height: 1.8;
+    margin-top: 15px;
+  }
+  .journey-stage .journey-eyebrow {
+    font-size: 6px !important;
+    margin-bottom: 13px;
+  }
+  .journey-stage .journey-awaits-label {
+    font-size: 6px;
+    margin-top: 10px;
+  }
+  .journey-stage .journey-previews > div {
+    font-size: 6px;
+  }
+  .journey-stage .journey-previews svg {
+    width: 10px;
+  }
+  .journey-stage .journey-swipe {
+    margin-top: 14px;
+    font-size: 5px !important;
+  }
+  .journey-chapters {
+    top: 49%;
+    bottom: auto;
+    left: 6%;
+    right: 6%;
+  }
+  .journey-current {
+    margin-bottom: 12px;
+  }
+  .journey-current span {
+    font-size: 6px;
+  }
+  .journey-current strong {
+    font-size: 17px;
+    max-width: 230px;
+  }
+  .journey-chapters nav {
+    gap: 22px;
+  }
+  .journey-chapters button {
+    font-size: 7px;
+    gap: 5px;
+  }
+  .dawn-arrival {
+    left: 27%;
+    top: 48%;
+    width: 75%;
+    height: 36%;
+  }
+  .deep-space-page.deep-variant-b {
+    padding-top: 68px;
+  }
+  .deep-b-stage {
+    height: calc(100svh - 68px);
+    min-height: 790px;
+  }
+  .deep-b-heading {
+    left: 7%;
+    top: 7%;
+    width: 86%;
+  }
+  .deep-b-heading h1 {
+    font-size: 64px;
+    margin: 18px 0;
+  }
+  .deep-b-heading > p {
+    font-size: 10px;
+    max-width: 300px;
+  }
+  .deep-b-heading .eyebrow {
+    font-size: 6px;
+  }
+  .deep-b-heading .destination-links {
+    margin-top: 16px;
+  }
+  .deep-b-sun {
+    left: 85%;
+    top: 37%;
+    width: 200px;
+    height: 200px;
+  }
+  .deep-b-craft {
+    left: 24%;
+    right: -6%;
+    top: 29%;
+    bottom: 22%;
+  }
+  .deep-b-selected {
+    left: 7%;
+    bottom: 28%;
+    max-width: 46%;
+  }
+  .deep-b-selected h2 {
+    font-size: 29px;
+  }
+  .deep-b-selected .eyebrow {
+    font-size: 5px;
+    max-width: 140px;
+  }
+  .deep-b-selected > p {
+    font-size: 8px;
+    max-width: 160px;
+    margin-bottom: 15px;
+  }
+  .deep-b-selected .primary {
+    min-height: 39px;
+    padding: 10px 12px;
+    font-size: 7px;
+    gap: 12px;
+  }
+  .deep-b-credit {
+    bottom: 23%;
+    left: 7%;
+    right: 7%;
+    max-width: none;
+    font-size: 4px;
+  }
+  .deep-b-tabs {
+    left: 7%;
+    right: 7%;
+    bottom: 23px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .deep-b-tabs button {
+    min-height: 52px;
+    padding: 11px 8px;
+    gap: 5px;
+  }
+  .deep-b-tabs strong {
+    font-size: 8px;
+  }
+  .deep-b-tabs small {
+    font-size: 4px;
+    letter-spacing: 0.3px;
+  }
+  .deep-b-tabs button > span {
+    font-size: 5px;
+  }
+  .deep-variant-b .deep-collection {
+    margin-top: 60px;
+  }
+  .cinematic-pause {
+    bottom: 8%;
+    padding: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-craft > img {
+    animation: none;
+  }
+  .journey-chapters button {
+    transition: none;
+  }
+  .journey-progress-track i,
+  .cinematic-craft > img {
+    will-change: auto;
+  }
+}

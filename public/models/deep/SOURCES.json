@@ -1,0 +1,30 @@
+{
+  "dawn": {
+    "url": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/dawn/Dawn.glb",
+    "source": "https://science.nasa.gov/3d-resources/dawn/",
+    "sourceBytes": 927020,
+    "localBytes": 1637616,
+    "processing": "Lossless Draco geometry decompression with glTF Transform; same NASA mesh. Orbit atlas rendered locally in Blender, 24 views, 640px per view."
+  },
+  "pioneer10": {
+    "url": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/pioneer-10/Pioneer%2010.glb",
+    "source": "https://science.nasa.gov/3d-resources/pioneer/",
+    "sourceBytes": 2049840,
+    "localBytes": 2317900,
+    "processing": "Lossless Draco geometry decompression with glTF Transform; same NASA mesh. Orbit atlas rendered locally in Blender, 24 views, 640px per view."
+  },
+  "kepler": {
+    "url": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/kepler-(a)/Kepler%20(A).glb",
+    "source": "https://science.nasa.gov/3d-resources/kepler-a/",
+    "sourceBytes": 2003276,
+    "localBytes": 2350252,
+    "processing": "Lossless Draco geometry decompression with glTF Transform; same NASA mesh. Orbit atlas rendered locally in Blender, 24 views, 640px per view."
+  },
+  "near": {
+    "url": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/master/3D%20Models/NEAR%20Shoemaker/NEAR%20Shoemaker.glb",
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/NEAR%20Shoemaker",
+    "sourceBytes": 701808,
+    "localBytes": 948088,
+    "processing": "Lossless Draco geometry decompression with glTF Transform; same NASA mesh. Orbit atlas rendered locally in Blender, 24 views, 640px per view."
+  }
+}

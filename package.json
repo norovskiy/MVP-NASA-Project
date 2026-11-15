@@ -1,0 +1,37 @@
+{
+  "name": "mars-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@huggingface/transformers": "4.3.2",
+    "@mintplex-labs/piper-tts-web": "1.0.5",
+    "@mlc-ai/web-llm": "0.2.88",
+    "@mui/material": "^7.3.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "@vercel/analytics": "^2.0.1",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.468.0",
+    "motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5",
+    "tailwindcss": "^4.1.17",
+    "three": "^0.180.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.4.1"
+  }
+}

@@ -1,0 +1,90 @@
+// This catalog powers the robot profiles. Each record keeps its NASA source beside the facts.
+export const robots = [
+  {id:'perseverance',name:'Perseverance',world:'mars',category:'Mars',type:'Mars rover',era:'2021 — present',status:'Active mission',summary:'A mobile laboratory exploring Jezero Crater, studying ancient environments and collecting sealed rock samples for possible return to Earth.',achievement:'Its sample tubes preserve carefully selected rock cores; the rover also carried the Ingenuity helicopter to Mars.',source:'https://science.nasa.gov/mission/mars-2020-perseverance/',modelUrl:'https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/mars-2020-perseverance-rover/Mars%202020%20Perseverance%20Rover.glb',modelSource:'https://science.nasa.gov/3d-resources/mars-2020-perseverance-rover/',image:'/media/jezero.jpg'},
+  {id:'curiosity',name:'Curiosity',world:'mars',category:'Mars',type:'Mars rover',era:'2012 — present',status:'Active mission',summary:'A car-sized chemistry lab climbing Mount Sharp inside Gale Crater to reconstruct whether ancient Mars could support microbial life.',achievement:'Its onboard laboratory analyzes drilled rock samples to study ancient Martian environments.',source:'https://science.nasa.gov/mission/msl-curiosity/',modelEmbedUrl:'https://mars.nasa.gov/gltf_embed/24584',modelSource:'https://science.nasa.gov/resource/curiosity-rover-3d-model/',image:'/media/curiosity.jpg'},
+  {id:'opportunity',name:'Opportunity',world:'mars',category:'Mars',type:'Mars rover',era:'2004 — 2018',status:'Silent · mission complete',summary:'A solar-powered rover that explored Meridiani Planum and Perseverance Valley for almost 15 years.',achievement:'It found geological evidence that liquid water once altered Martian rocks and outlasted its planned 90-sol mission many times over.',source:'https://science.nasa.gov/mission/mer-opportunity/',modelUrl:'https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/mars-exploration-rover---opportunity-%28mer-b%29/Mars%20Exploration%20Rover%20-%20Opportunity%20%28MER-B%29.glb',modelSource:'https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/',image:'/media/opportunity.jpg'},
+  {id:'spirit',name:'Spirit',world:'mars',category:'Mars',type:'Mars rover',era:'2004 — 2011',status:'Silent · mission complete',summary:'Opportunity’s twin explored Gusev Crater, examining volcanic rocks, hills and traces of a wetter past.',achievement:'Spirit operated for more than six years and traveled about 7.7 kilometers across the surface.',source:'https://science.nasa.gov/mission/mer-spirit/'},
+  {id:'insight',name:'InSight',world:'mars',category:'Mars',type:'Stationary lander',era:'2018 — 2022',status:'Silent · mission complete',summary:'A stationary geophysical station that recorded marsquakes and measured the planet’s wobble. Its heat probe did not reach the intended depth.',achievement:'Its seismometer detected more than 1,300 marsquakes before dust accumulation reduced the lander’s available power.',source:'https://science.nasa.gov/mission/insight/',image:'/media/insight.jpg'},
+  {id:'ingenuity',name:'Ingenuity',world:'mars',category:'Mars',type:'Robotic helicopter',era:'2021 — 2024',status:'Grounded · technology demo complete',summary:'A small solar-powered helicopter delivered to Mars beneath Perseverance’s belly.',achievement:'It completed 72 flights; damage to a rotor blade ended flight operations after its final flight on January 18, 2024.',source:'https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/',modelUrl:'https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/ingenuity-mars-helicopter/Ingenuity%20Mars%20Helicopter.glb',modelSource:'https://science.nasa.gov/3d-resources/ingenuity-mars-helicopter/',image:'/media/ingenuity.jpg'},
+  {id:'sojourner',name:'Sojourner',world:'mars',category:'Mars',type:'Technology-demonstration rover',era:'1997',status:'Silent · mission complete',summary:'The first successful wheeled rover to operate on Mars, delivered by the Pathfinder lander.',achievement:'It showed that a compact rover could drive to nearby rocks and inspect them with scientific instruments.',source:'https://science.nasa.gov/mission/mars-pathfinder/'},
+  {id:'apollo-rover',name:'Apollo Lunar Roving Vehicle',world:'moon',category:'Moon',type:'Crewed electric rover',era:'1971 — 1972',status:'Parked on the Moon',summary:'A foldable, battery-powered vehicle driven by astronauts on Apollo 15, 16 and 17.',achievement:'The rover let crews travel farther from their landing craft while bringing geology tools and samples along.',source:'https://www.nasa.gov/specials/apollo50th/missions.html',image:'/media/moon-surface.jpg'},
+  {id:'lunokhod',name:'Lunokhod 1 & 2',world:'moon',category:'Moon',type:'Soviet remote-controlled rovers',era:'1970 — 1973',status:'Parked on the Moon',summary:'Robotic lunar vehicles guided by teams on Earth. Lunokhod 1 operated across Mare Imbrium for about 11 months.',achievement:'They sent television images and measurements from the Moon decades before modern rover missions.',source:'https://science.nasa.gov/photojournal/soviet-union-lunar-rovers/',image:'/media/moon-surface.jpg'},
+  {id:'viper',name:'VIPER',world:'future',category:'Planned lunar missions',type:'Lunar water-prospecting rover',era:'Planned for late 2027',status:'Built · testing for a planned mission',summary:'NASA’s rover is planned to explore the lunar south pole, sampling soil and mapping where water ice and other volatiles may be found.',achievement:'A one-meter drill and instruments will examine how water changes with depth, temperature and sunlight.',source:'https://www.nasa.gov/missions/moon-base/nasa-provides-progress-update-on-moon-base-rovers/'},
+  {id:'lunar-terrain-vehicle',name:'Lunar Terrain Vehicle',world:'future',category:'Planned lunar missions',type:'Crewed lunar surface vehicle',era:'Planned for future Moon Base missions',status:'Commercial vehicle development underway',summary:'A new generation of lunar vehicles is being developed to carry astronauts across the Moon’s south polar region.',achievement:'NASA’s planned approach pairs robotic mapping and scouting with vehicles astronauts can drive on later missions.',source:'https://www.nasa.gov/missions/moon-base/nasa-provides-progress-update-on-moon-base-rovers/'},
+  {id:'cadre',name:'CADRE',world:'future',category:'Planned lunar missions',type:'Cooperating mini-rovers',era:'Technology demonstration in development',status:'Candidate lunar technology demonstration',summary:'Three small autonomous robots are designed to cooperate, map terrain and collect measurements as a team.',achievement:'The project tests whether a group of robots can gather data from several places at once without a person steering every move.',source:'https://www.nasa.gov/cooperative-autonomous-distributed-robotic-exploration-cadre/'},
+  {id:'dragonfly',name:'Dragonfly',world:'future',category:'Outer solar system',type:'Nuclear-powered rotorcraft lander',era:'Launch planned no earlier than 2028',status:'Future mission to Titan',summary:'NASA’s planned rotorcraft will fly between scientific sites on Saturn’s moon Titan, sampling material and studying prebiotic chemistry.',achievement:'Titan’s dense atmosphere lets the vehicle use rotors to hop between distant landing sites.',source:'https://science.nasa.gov/mission/dragonfly/'},
+];
+
+// Components are selectable so the labeled drawing and the explanation stay in sync.
+export const roverParts = {
+  perseverance: [
+    {id:'mast',name:'Mastcam-Z & SuperCam',detail:'Mastcam-Z is a pair of zoomable stereo cameras. SuperCam, mounted near the mast, studies the chemistry and mineralogy of rocks from a distance.'},
+    {id:'antenna',name:'UHF & X-band antennas',detail:'The UHF antenna relays data through orbiters; X-band antennas send commands and selected data directly between the rover and Earth.'},
+    {id:'arm',name:'Sampling arm & drill',detail:'The arm positions tools at a rock. The coring drill cuts a sample that can be sealed in a tube for possible future return.'},
+    {id:'body',name:'Warm electronics box',detail:'The rover body protects computers and instrument electronics and helps keep them within operating temperatures.'},
+    {id:'wheels',name:'Six-wheel rocker-bogie',detail:'The suspension helps all six wheels stay in contact with uneven terrain while the rover climbs over obstacles.'},
+    {id:'power',name:'MMRTG power source',detail:'A multi-mission radioisotope thermoelectric generator converts heat from plutonium-238 decay into electricity and warmth.'},
+  ],
+  curiosity: [
+    {id:'mast',name:'Mastcam & ChemCam',detail:'Mastcam captures color images and mosaics. ChemCam uses a laser and spectrometers to analyze the chemistry of distant targets.'},
+    {id:'antenna',name:'Radio antennas',detail:'The antennas receive commands and return engineering and science data, often through Mars orbiters.'},
+    {id:'arm',name:'Arm, drill & APXS',detail:'The arm places a drill and contact science tools against rocks. Curiosity analyzes powdered samples with its onboard instruments.'},
+    {id:'body',name:'SAM & CheMin laboratories',detail:'Inside the rover, SAM studies gases and organic compounds while CheMin identifies minerals in powdered rock samples.'},
+    {id:'wheels',name:'Six-wheel rocker-bogie',detail:'The suspension carries the rover over rocky ground; the wheels also leave track patterns used to monitor wear.'},
+    {id:'power',name:'MMRTG power source',detail:'The radioisotope power system supplies electricity and heat for the rover’s instruments and operations.'},
+  ],
+  opportunity: [
+    {id:'mast',name:'Pancam & Mini-TES',detail:'Panoramic cameras recorded color and stereo views. Mini-TES measured infrared spectra to help identify minerals in rocks.'},
+    {id:'antenna',name:'High- and low-gain antennas',detail:'The antennas supported direct-to-Earth communications and links through Mars orbiters.'},
+    {id:'arm',name:'Instrument arm & RAT',detail:'The robotic arm positioned a camera and contact instruments. The Rock Abrasion Tool brushed or ground a small patch of rock for study.'},
+    {id:'body',name:'Rock abrasion & science tools',detail:'The rover carried a microscopic imager, alpha particle X-ray spectrometer and Mössbauer spectrometer to examine rock surfaces.'},
+    {id:'wheels',name:'Six-wheel rocker-bogie',detail:'The suspension helped Opportunity cross rough terrain and descend into craters during its long surface mission.'},
+    {id:'power',name:'Solar arrays & batteries',detail:'Solar panels charged rechargeable batteries. Dust storms could reduce sunlight; a global storm preceded the rover’s final loss of contact.'},
+  ],
+  spirit: [
+    {id:'mast',name:'Pancam & Mini-TES',detail:'Panoramic cameras mapped the surroundings in color and stereo. Mini-TES measured infrared spectra to identify minerals.'},
+    {id:'antenna',name:'Communications antennas',detail:'The antennas exchanged commands and mission data with Earth, including through relay orbiters.'},
+    {id:'arm',name:'Instrument arm & RAT',detail:'The arm positioned the microscopic imager and spectrometers. The Rock Abrasion Tool exposed fresh rock surfaces.'},
+    {id:'body',name:'Rock science instruments',detail:'Spirit carried a microscopic imager, alpha particle X-ray spectrometer and Mössbauer spectrometer for close-up rock studies.'},
+    {id:'wheels',name:'Six-wheel rocker-bogie',detail:'The suspension helped Spirit traverse rocky terrain; one wheel later stopped working, so it drove partly backward.'},
+    {id:'power',name:'Solar arrays & batteries',detail:'Solar panels charged rechargeable batteries. Wind events sometimes cleaned dust from the arrays and restored power.'},
+  ],
+  sojourner: [
+    {id:'mast',name:'Front and rear cameras',detail:'Sojourner used two black-and-white navigation cameras and a color camera to inspect nearby rocks and help operators plan short drives.'},
+    {id:'antenna',name:'Communications antenna',detail:'The rover sent commands and measurements to the Pathfinder lander, which relayed them to Earth.'},
+    {id:'arm',name:'Alpha Proton X-ray Spectrometer',detail:'The APXS was placed against rocks to measure their elemental composition.'},
+    {id:'body',name:'Electronics and thermal control',detail:'The compact rover body held its computer, communications equipment and electronics needed for surface operations.'},
+    {id:'wheels',name:'Six wheels and suspension',detail:'Six independently driven wheels helped the small rover negotiate rocks around the Pathfinder landing site.'},
+    {id:'power',name:'Solar panel and batteries',detail:'A small solar array charged rechargeable batteries that powered the rover during its short Mars mission.'},
+  ],
+  insight: [
+    {id:'mast',name:'Seismometer & wind sensors',detail:'The seismometer measured marsquakes. InSight’s weather sensors recorded wind, air temperature and pressure near the surface.'},
+    {id:'antenna',name:'X-band antenna',detail:'The radio system received commands and sent lander science data and telemetry back to Earth.'},
+    {id:'arm',name:'Instrument deployment arm',detail:'The robotic arm placed the seismometer and heat-flow instrument on the ground beside the lander.'},
+    {id:'body',name:'Seismic Experiment',detail:'SEIS measured ground motion and detected more than a thousand marsquakes, helping scientists study Mars’s interior.'},
+    {id:'wheels',name:'Heat-flow probe',detail:'The HP³ probe was designed to measure heat moving out of Mars’s interior. It could not burrow as planned in the soil.'},
+    {id:'power',name:'Solar panels',detail:'Two circular solar arrays generated power. Accumulated dust gradually reduced energy available for science and communication.'},
+  ],
+  ingenuity: [
+    {id:'mast',name:'Navigation camera',detail:'A downward-facing navigation camera tracked the surface during flight to estimate the helicopter’s position.'},
+    {id:'antenna',name:'Radio link',detail:'A radio link relayed flight data between Ingenuity and Perseverance, which then forwarded it to Earth.'},
+    {id:'arm',name:'Two counter-rotating rotors',detail:'Two coaxial rotors spun in opposite directions to generate lift in Mars’s very thin atmosphere.'},
+    {id:'body',name:'Flight computer & sensors',detail:'The lightweight body housed avionics, cameras, batteries and sensors used to stabilize autonomous flights.'},
+    {id:'wheels',name:'Landing legs',detail:'Four landing legs supported the helicopter on the Martian surface between flights.'},
+    {id:'power',name:'Solar panel & batteries',detail:'A solar panel charged batteries for flight and to keep the helicopter warm through the cold Martian night.'},
+  ],
+  moon: [
+    {id:'seat',name:'Crew & controls',detail:'Apollo astronauts sat side by side and steered the battery-powered rover with a hand controller while wearing spacesuits.'},
+    {id:'antenna',name:'High-gain antenna',detail:'A steerable dish sent television and science data back to Earth through the lunar communications network.'},
+    {id:'body',name:'Foldable chassis',detail:'The rover folded into the Lunar Module for launch and was unfolded by astronauts after they landed.'},
+    {id:'wheels',name:'Four wire-mesh wheels',detail:'Each wheel used a metal mesh with titanium chevrons for traction in loose lunar soil.'},
+    {id:'power',name:'Silver-zinc batteries',detail:'Non-rechargeable batteries supplied power for the rover’s short surface expeditions.'},
+  ],
+  aerial: [
+    {id:'rotor',name:'Eight rotors',detail:'Eight rotors arranged in counter-rotating pairs are designed to produce lift in Titan’s dense atmosphere.'},
+    {id:'body',name:'Warm electronics box',detail:'The insulated central body houses flight computers, batteries and science electronics for long, cold Titan nights.'},
+    {id:'camera',name:'Navigation cameras',detail:'Cameras help Dragonfly assess the terrain and choose safe landing areas between science sites.'},
+    {id:'power',name:'Radioisotope power source',detail:'A radioisotope system is designed to recharge batteries and keep the rotorcraft warm far from the Sun.'},
+    {id:'legs',name:'Landing skids',detail:'Landing legs support the craft on Titan’s varied ground and provide a stable base for surface science.'},
+  ]
+};

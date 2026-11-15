@@ -1,0 +1,10 @@
+import {useEffect,useRef,useState} from 'react';
+import {createPortal} from 'react-dom';
+import {X,Plus,Minus,RotateCcw,ExternalLink} from 'lucide-react';
+import {t} from '../i18n';
+// The complete source image is shown with contain; no information is cropped away.
+export default function PhotoLightbox({src,alt,credit,source,onClose}){
+ const [zoom,setZoom]=useState(1),close=useRef();
+ useEffect(()=>{const previous=document.activeElement,overflow=document.body.style.overflow;document.body.style.overflow='hidden';close.current?.focus();const key=e=>{if(e.key==='Escape')onClose();if(e.key==='Tab'){const controls=[...document.querySelectorAll('.photo-lightbox button,.photo-lightbox a')];const first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}}};window.addEventListener('keydown',key);return()=>{document.body.style.overflow=overflow;window.removeEventListener('keydown',key);previous?.focus()}},[onClose]);
+ return createPortal(<div className="photo-lightbox" role="dialog" aria-modal="true" aria-label={t('Archive photograph')}><div className="photo-lightbox-bar"><strong>{alt}</strong><div><button onClick={()=>setZoom(v=>Math.max(1,v-.25))} aria-label={t('Zoom out')}><Minus size={20}/></button><span>{Math.round(zoom*100)}%</span><button onClick={()=>setZoom(v=>Math.min(3,v+.25))} aria-label={t('Zoom in')}><Plus size={20}/></button><button onClick={()=>setZoom(1)} aria-label={t('Reset view')}><RotateCcw size={20}/></button><button ref={close} onClick={onClose} aria-label={t('Close photograph')}><X size={24}/></button></div></div><div className={'photo-lightbox-image'+(zoom>1?' zoomed':'')} onClick={e=>{if(e.target===e.currentTarget)onClose()}}><img src={src} alt={alt} draggable="false" style={{width:zoom===1?'auto':zoom*100+'%',maxWidth:zoom===1?'100%':'none',maxHeight:zoom===1?'100%':'none'}}/></div><footer><span>{credit}</span>{source&&<a href={source} target="_blank" rel="noreferrer">{t('Original image')}<ExternalLink size={15}/></a>}</footer></div>,document.body);
+}

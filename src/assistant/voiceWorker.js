@@ -1,0 +1,9 @@
+import {TtsSession} from '@mintplex-labs/piper-tts-web';
+// Use the original, pinned public voice release; reject HTTP error bodies.
+const fetchOriginal=self.fetch.bind(self);
+self.fetch=async(input,options)=>{let url=typeof input==='string'?input:input.url;url=url.replace('https://huggingface.co/diffusionstudio/piper-voices/resolve/main/','https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/');const response=await fetchOriginal(url,options);if(!response.ok)throw new Error('VOICE_DOWNLOAD_'+response.status);return response};
+let session,currentVoice,queue=Promise.resolve();
+async function repairCache(voiceId){
+ try{const root=await navigator.storage.getDirectory(),dir=await root.getDirectoryHandle('piper');for(const suffix of ['.onnx','.onnx.json']){try{const handle=await dir.getFileHandle(voiceId+suffix),file=await handle.getFile();if(file.size<(suffix==='.onnx'?1000000:100))await dir.removeEntry(voiceId+suffix)}catch{}}}catch{}
+}
+self.onmessage=({data:m})=>{queue=queue.then(async()=>{try{const voiceId=m.lang==='ru'?'ru_RU-irina-medium':'en_US-hfc_female-medium';if(!session||currentVoice!==voiceId){await repairCache(voiceId);session=await TtsSession.create({voiceId,wasmPaths:{onnxWasm:new URL('/voice-runtime/',self.location.origin).href,piperWasm:'https://cdn.jsdelivr.net/npm/@diffusionstudio/piper-wasm@1.0.0/build/piper_phonemize.wasm',piperData:'https://cdn.jsdelivr.net/npm/@diffusionstudio/piper-wasm@1.0.0/build/piper_phonemize.data'},progress:p=>postMessage({id:m.id,type:'progress',percent:p.total?Math.round(p.loaded/p.total*100):0})});currentVoice=voiceId}if(m.type==='prepare'){postMessage({id:m.id,type:'ready'});return}const wav=await session.predict(m.text);postMessage({id:m.id,type:'audio',wav})}catch(e){postMessage({id:m.id,type:'error',message:e.message||String(e)})}})};

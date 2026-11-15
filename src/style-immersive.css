@@ -1,0 +1,891 @@
+/* One bounded sticky stage: the hero cannot paint or remain sticky over its siblings. */
+.scroll-journey {
+  position: relative;
+  min-height: 330svh;
+  isolation: isolate;
+  overflow: clip;
+  background: #03060b;
+}
+.journey-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #03060b;
+}
+.journey-stage .space-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+.journey-stage .journey-overlay {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  margin: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.deep-flight {
+  position: absolute;
+  left: 43%;
+  top: 7%;
+  width: 57%;
+  height: 88%;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 70% 50%;
+  will-change: transform, opacity;
+}
+.spacecraft-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 64% 42%, #23364a29, transparent 60%);
+}
+.spacecraft-render {
+  position: absolute;
+  inset: 0;
+  touch-action: pan-y;
+}
+.spacecraft-render canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.spacecraft-render canvas:active {
+  cursor: grabbing;
+}
+.spacecraft-decorative {
+  background: none;
+  min-height: 0;
+  pointer-events: none;
+}
+.spacecraft-decorative canvas {
+  pointer-events: none;
+}
+.spacecraft-status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font: 400 10px/1.7 var(--font-ui);
+  letter-spacing: 1px;
+  color: #8d9daa;
+}
+.spacecraft-unavailable {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #b4c5d4;
+}
+.spacecraft-unavailable img {
+  width: 100%;
+  height: 90%;
+  object-fit: contain;
+}
+.spacecraft-legend {
+  position: absolute;
+  left: 5%;
+  top: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-width: 80%;
+  pointer-events: none;
+  font: 400 8px/1.6 var(--font-ui);
+  letter-spacing: 1.6px;
+  color: #a6b7c5;
+}
+.spacecraft-legend small {
+  font-size: 9px;
+  letter-spacing: 0.3px;
+  color: #7890a4;
+  max-width: 420px;
+}
+.spacecraft-tools {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  background: #050a12d9;
+  border: 1px solid #a6c4d32b;
+  border-radius: 35px;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+}
+.spacecraft-tools button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #b9d3e5;
+}
+.spacecraft-tools button:hover {
+  background: #8eb2d21c;
+}
+.spacecraft-tools a {
+  font: 400 9px var(--font-ui);
+  padding: 0 10px;
+  color: #92a5b6;
+}
+.deep-observatory {
+  position: relative;
+  min-height: 740px;
+  border: 1px solid #87adc528;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 83% 13%, #fff0d207, transparent 30%), #03080f;
+  box-shadow: 0 20px 100px #0005;
+}
+.deep-observatory-scene {
+  position: absolute;
+  left: 34%;
+  right: 0;
+  top: 0;
+  bottom: 120px;
+}
+.deep-observatory-copy {
+  position: relative;
+  z-index: 2;
+  width: 36%;
+  padding: 100px 0 100px 5%;
+  pointer-events: none;
+}
+.deep-observatory-copy h2 {
+  font: 400 clamp(43px, 5vw, 78px)/1 var(--font-display);
+  margin: 24px 0;
+}
+.deep-observatory-copy > p {
+  color: #9eafbd;
+  font: 400 12px/1.95 var(--font-ui);
+  max-width: 290px;
+}
+.deep-observatory-copy .deep-location {
+  color: #d9dfe5;
+  font-size: 10px;
+}
+.deep-observatory-copy .primary {
+  pointer-events: auto;
+  min-width: 230px;
+  margin-top: 30px;
+  font-size: 10px;
+}
+.deep-observatory-select {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 28px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  z-index: 4;
+}
+.deep-observatory-select button {
+  min-height: 75px;
+  padding: 15px 12px;
+  text-align: left;
+  border: 1px solid #91aec526;
+  background: #0a1420b0;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.deep-observatory-select button[aria-pressed="true"] {
+  border-color: #dfb9929c;
+  background: #211e1a94;
+  box-shadow: inset 0 1px #f2d1ab;
+}
+.deep-observatory-select button span {
+  font: 400 13px var(--font-ui);
+}
+.deep-observatory-select small {
+  font: 400 6px/1.6 var(--font-ui);
+  letter-spacing: 1px;
+  color: #91a8ba;
+}
+.deep-inspection {
+  position: relative;
+  height: 85svh;
+  min-height: 620px;
+  margin: 0 calc((100vw - 100%) / -2) 70px;
+  background:
+    radial-gradient(ellipse at 73% 41%, #192b3e4d, transparent 55%), #03080d;
+  overflow: hidden;
+}
+.deep-inspection > .spacecraft-stage {
+  position: absolute;
+  left: 27%;
+  right: 0;
+  top: 0;
+  width: 73%;
+  height: 100%;
+}
+.deep-inspection-caption {
+  position: absolute;
+  left: 7vw;
+  top: 30%;
+  width: 28%;
+  pointer-events: none;
+}
+.deep-inspection-caption h2 {
+  font: 400 clamp(35px, 4vw, 62px)/1.05 var(--font-display);
+  margin: 25px 0;
+}
+.deep-inspection-caption p {
+  font: 400 11px/1.9 var(--font-ui);
+  color: #97acbc;
+  max-width: 280px;
+}
+/* The full-bleed surface returns the photograph to the center of the experience. */
+.immersive-archive {
+  padding-top: 75px;
+}
+.surface-immersive {
+  position: relative;
+  height: calc(100svh - 75px);
+  min-height: 650px;
+  isolation: isolate;
+  overflow: hidden;
+  background: #050709;
+}
+.surface-visual,
+.surface-visual > .archive-photo-scene,
+.surface-visual > .cylinder-viewer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+.surface-visual .cylinder-viewer canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0;
+}
+.surface-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #030609a8, transparent 43%),
+    linear-gradient(
+      0deg,
+      #030609ee,
+      transparent 28%,
+      transparent 68%,
+      #030609bc
+    );
+  z-index: 1;
+}
+.surface-topbar {
+  position: absolute;
+  z-index: 3;
+  top: 28px;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font: 400 10px/1.5 var(--font-ui);
+  letter-spacing: 1.3px;
+  color: #c6d0d5;
+}
+.surface-topbar a,
+.surface-topbar button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.surface-topbar > span {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #afbdc5;
+}
+.surface-title {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 5%;
+  max-width: 60%;
+  pointer-events: none;
+  text-shadow: 0 2px 30px #000b;
+}
+.surface-title .eyebrow {
+  font-size: 9px;
+  color: #d4b59a;
+}
+.surface-title h1 {
+  font: 400 clamp(42px, 5.6vw, 86px)/1.02 var(--font-display);
+  letter-spacing: -2px;
+  margin: 25px 0;
+}
+.surface-title > p {
+  font: 400 9px/1.7 var(--font-ui);
+  color: #c2ccd4;
+}
+.archive-photo-scene {
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  --photo-play: running;
+}
+.archive-photo-scene > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform;
+  transition: transform 0.4s;
+  transform-origin: center;
+}
+.archive-photo-scene.is-moving > img {
+  animation: archive-drift 28s ease-in-out infinite alternate;
+  animation-play-state: var(--photo-play);
+}
+@keyframes archive-drift {
+  from {
+    transform: scale(1.025) translate3d(-0.4%, 0, 0);
+  }
+  to {
+    transform: scale(1.085) translate3d(0.4%, -0.5%, 0);
+  }
+}
+.photo-scene-tools {
+  position: absolute;
+  bottom: 30px;
+  right: 4%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #bfd8e82b;
+  border-radius: 30px;
+  background: #04090dd9;
+  backdrop-filter: blur(12px);
+  cursor: default;
+}
+.photo-scene-tools > span {
+  font: 400 8px var(--font-ui);
+  color: #a3b4c2;
+  margin: 0 10px;
+}
+.photo-scene-tools button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: #bbd1df;
+}
+.photo-failed {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  text-align: center;
+  font-size: 12px;
+  color: #a9bbc9;
+}
+.surface-mode-tabs {
+  position: absolute;
+  right: 4%;
+  top: 80px;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+}
+.surface-mode-tabs button {
+  font: 400 8px/1.5 var(--font-ui);
+  border: 1px solid #9ab4c641;
+  background: #03080dcc;
+  padding: 10px 14px;
+  border-radius: 3px;
+  backdrop-filter: blur(10px);
+}
+.surface-mode-tabs button[aria-pressed="true"] {
+  border-color: #e6c4a0a1;
+  color: #f0d1af;
+}
+.surface-story-launchers {
+  position: absolute;
+  left: 5%;
+  bottom: 38px;
+  z-index: 3;
+  display: flex;
+  gap: 12px;
+  max-width: 55%;
+  flex-wrap: wrap;
+}
+.surface-story-launchers button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 15px;
+  border: 1px solid #a2c2d94d;
+  border-radius: 6px;
+  background: #040c13d9;
+  backdrop-filter: blur(12px);
+  text-align: left;
+}
+.surface-story-launchers button > svg {
+  border: 1px solid #b1d8e7;
+  border-radius: 50%;
+  padding: 5px;
+  box-sizing: content-box;
+  color: #b7dbe9;
+}
+.surface-story-launchers button span {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font: 400 11px/1.5 var(--font-ui);
+}
+.surface-story-launchers small {
+  font-size: 6px;
+  letter-spacing: 1.2px;
+  color: #8da2b2;
+}
+.surface-story-launchers button[aria-expanded="true"] {
+  border-color: #edc99d;
+}
+.surface-story-drawer {
+  position: absolute;
+  z-index: 5;
+  right: 4%;
+  bottom: 110px;
+  width: min(370px, 86%);
+  padding: 32px;
+  background: #050d16ed;
+  border: 1px solid #8faec83d;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  animation: drawer-in 0.3s ease;
+}
+.surface-story-drawer .eyebrow {
+  font-size: 7px;
+  max-width: 90%;
+}
+.surface-story-drawer h2 {
+  font: 400 38px/1.1 var(--font-display);
+  margin: 19px 0;
+}
+.surface-story-drawer p {
+  font: 400 11px/1.85 var(--font-ui);
+  color: #abbcca;
+  margin: 0;
+}
+.surface-story-close {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  padding: 5px;
+  color: #97aebe;
+}
+.surface-evidence-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: #05090d;
+  padding: 18px 5%;
+  border-bottom: 1px solid #a2bac521;
+  font: 400 8px/1.7 var(--font-ui);
+  color: #8b9ba9;
+}
+.surface-evidence-bar > span {
+  letter-spacing: 1.2px;
+  color: #c2aa91;
+}
+.surface-evidence-bar p {
+  margin: 0;
+  flex: 1;
+}
+.surface-evidence-bar a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #bed4df;
+}
+.surface-record-content {
+  width: 86%;
+  max-width: 1420px;
+  margin: 70px auto 0;
+}
+.surface-context {
+  font: 400 clamp(21px, 2.1vw, 32px)/1.6 var(--font-display);
+  max-width: 900px;
+  color: #d2dce3;
+}
+.surface-record-content > .fine-print {
+  font: 400 9px/1.8 var(--font-ui);
+  color: #78909f;
+  max-width: 800px;
+}
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.has-panorama .cylinder-tools {
+  left: auto;
+  right: 4%;
+  bottom: 30px;
+  transform: none;
+  z-index: 3;
+}
+.has-panorama .surface-story-launchers {
+  max-width: 38%;
+}
+@media (max-width: 900px) {
+  .deep-observatory {
+    min-height: 830px;
+  }
+  .deep-observatory-copy {
+    width: 43%;
+    padding-top: 65px;
+  }
+  .deep-observatory-scene {
+    left: 30%;
+    bottom: 160px;
+  }
+  .deep-observatory-select {
+    grid-template-columns: repeat(3, 1fr);
+    bottom: 18px;
+  }
+  .deep-observatory-select button {
+    min-height: 60px;
+  }
+  .deep-inspection > .spacecraft-stage {
+    left: 20%;
+    width: 80%;
+  }
+  .deep-inspection-caption {
+    width: 32%;
+  }
+  .surface-title {
+    max-width: 78%;
+    top: 17%;
+  }
+  .surface-story-launchers {
+    bottom: 100px;
+    max-width: 90%;
+  }
+  .surface-story-launchers button span {
+    font-size: 9px;
+  }
+  .surface-title h1 {
+    font-size: 60px;
+  }
+  .has-panorama .surface-story-launchers {
+    bottom: 100px;
+    max-width: 80%;
+  }
+  .surface-story-drawer {
+    bottom: 180px;
+  }
+}
+@media (max-width: 620px) {
+  .scroll-journey {
+    min-height: 330svh;
+  }
+  .deep-flight {
+    left: 0;
+    top: 41%;
+    height: 59%;
+    width: 100%;
+  }
+  .journey-stage .journey-overlay .journey-copy {
+    top: 18%;
+    width: 86vw;
+    background: none;
+  }
+  .journey-stage .journey-copy h1 {
+    font-size: 48px;
+  }
+  .journey-stage .journey-description {
+    max-width: 300px;
+  }
+  .deep-observatory {
+    min-height: 850px;
+  }
+  .deep-observatory-copy {
+    width: 100%;
+    padding: 30px 7% 0;
+    pointer-events: none;
+  }
+  .deep-observatory-copy h2 {
+    font-size: 49px;
+    margin: 15px 0;
+  }
+  .deep-observatory-copy > p {
+    font-size: 10px;
+    max-width: 80%;
+    margin: 9px 0;
+  }
+  .deep-observatory-copy .primary {
+    margin: 12px 0;
+    min-height: 40px;
+    min-width: 200px;
+    padding: 12px;
+    font-size: 9px;
+  }
+  .deep-observatory-copy .deep-silent {
+    font-size: 8px;
+  }
+  .deep-observatory-scene {
+    top: 260px;
+    left: 0;
+    bottom: 180px;
+  }
+  .deep-observatory-select {
+    grid-template-columns: repeat(3, 1fr);
+    left: 5%;
+    right: 5%;
+    gap: 6px;
+  }
+  .deep-observatory-select button {
+    padding: 11px 7px;
+    min-height: 55px;
+  }
+  .deep-observatory-select button span {
+    font-size: 9px;
+  }
+  .deep-observatory-select small {
+    font-size: 5px;
+  }
+  .spacecraft-legend {
+    font-size: 6px;
+    top: 8px;
+  }
+  .spacecraft-legend small {
+    font-size: 7px;
+    max-width: 260px;
+  }
+  .spacecraft-tools {
+    bottom: 10px;
+    padding: 5px;
+    gap: 3px;
+  }
+  .spacecraft-tools a {
+    font-size: 7px;
+  }
+  .spacecraft-tools button {
+    width: 28px;
+    height: 28px;
+  }
+  .spacecraft-stage {
+    min-height: 0;
+  }
+  .deep-inspection {
+    height: 720px;
+    min-height: 0;
+  }
+  .deep-inspection > .spacecraft-stage {
+    left: 0;
+    top: 220px;
+    width: 100%;
+    height: 500px;
+  }
+  .deep-inspection-caption {
+    top: 30px;
+    left: 7%;
+    width: 86%;
+  }
+  .deep-inspection-caption h2 {
+    font-size: 43px;
+    max-width: 310px;
+    margin: 16px 0;
+  }
+  .deep-inspection-caption p {
+    font-size: 10px;
+    max-width: 320px;
+  }
+  .immersive-archive {
+    padding-top: 68px;
+  }
+  .surface-immersive {
+    height: calc(100svh - 68px);
+    min-height: 630px;
+  }
+  .surface-topbar {
+    top: 20px;
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .surface-topbar > span {
+    display: none;
+  }
+  .surface-title {
+    top: 13%;
+    left: 6%;
+    max-width: 88%;
+  }
+  .surface-title h1 {
+    font-size: 43px;
+    letter-spacing: -1px;
+    margin: 17px 0;
+  }
+  .surface-title > p {
+    font-size: 7px;
+    max-width: 270px;
+  }
+  .surface-title .eyebrow {
+    font-size: 7px;
+  }
+  .surface-mode-tabs {
+    top: 34%;
+    left: 6%;
+    right: auto;
+  }
+  .surface-mode-tabs button {
+    padding: 8px 9px;
+    font-size: 7px;
+  }
+  .surface-story-launchers {
+    left: 6%;
+    bottom: 105px;
+    gap: 7px;
+  }
+  .surface-story-launchers button {
+    padding: 7px 9px;
+    gap: 7px;
+  }
+  .surface-story-launchers button span {
+    font-size: 8px;
+    gap: 3px;
+  }
+  .surface-story-launchers small {
+    font-size: 5px;
+  }
+  .surface-story-launchers button > svg {
+    width: 13px;
+    height: 13px;
+    padding: 4px;
+  }
+  .photo-scene-tools {
+    right: 6%;
+    left: 6%;
+    bottom: 25px;
+    justify-content: center;
+    gap: 5px;
+  }
+  .photo-scene-tools > span {
+    font-size: 7px;
+  }
+  .has-panorama .cylinder-tools {
+    right: 6%;
+    left: 6%;
+    bottom: 25px;
+    justify-content: center;
+  }
+  .has-panorama .cylinder-tools > span {
+    font-size: 6px;
+  }
+  .surface-story-drawer {
+    right: 6%;
+    bottom: 177px;
+    padding: 24px;
+    max-height: 45%;
+    overflow: auto;
+  }
+  .surface-story-drawer h2 {
+    font-size: 30px;
+  }
+  .surface-story-drawer p {
+    font-size: 10px;
+  }
+  .surface-evidence-bar {
+    font-size: 7px;
+    gap: 9px;
+  }
+  .surface-evidence-bar > span {
+    width: 100%;
+  }
+  .surface-record-content {
+    width: 88%;
+    margin-top: 40px;
+  }
+  .surface-context {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .archive-photo-scene.is-moving > img {
+    animation: none;
+  }
+  .surface-story-drawer {
+    animation: none;
+  }
+  .deep-flight {
+    will-change: auto;
+  }
+  .archive-photo-scene > img {
+    transition: none;
+  }
+}
+
+.spacecraft-orbit-frames {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.spacecraft-decorative .spacecraft-orbit-frames {
+  pointer-events: none;
+}
+.spacecraft-tools,
+.spacecraft-legend {
+  z-index: 3;
+}
+
+.spacecraft-stage:not(.spacecraft-decorative)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1px 1px at 12% 18%, #b1c8d655, transparent),
+    radial-gradient(1px 1px at 88% 30%, #d8e5ec6b, transparent),
+    radial-gradient(1px 1px at 45% 6%, #dde6f26b, transparent),
+    radial-gradient(1px 1px at 64% 86%, #c7dceb55, transparent),
+    radial-gradient(1px 1px at 31% 62%, #d1e9ff55, transparent),
+    radial-gradient(1px 1px at 77% 12%, #cde3ff77, transparent),
+    radial-gradient(1px 1px at 95% 73%, #cfdeed55, transparent),
+    radial-gradient(1px 1px at 6% 81%, #b1d3ef44, transparent);
+}
+.spacecraft-render canvas {
+  touch-action: pan-y !important;
+}

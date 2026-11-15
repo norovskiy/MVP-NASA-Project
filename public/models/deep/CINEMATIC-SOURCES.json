@@ -1,0 +1,27 @@
+{
+  "meshes": "SOURCES.json",
+  "lighting": {
+    "cameraKey": [
+      0.48,
+      0.56,
+      0.68
+    ],
+    "type": "Blender directional sun; original artistic lighting"
+  },
+  "renders": [
+    "dawn-cinematic.webp",
+    "pioneer10-cinematic.webp",
+    "near-cinematic.webp",
+    "kepler-cinematic.webp"
+  ],
+  "resolution": [
+    1200,
+    1200
+  ],
+  "ceres": {
+    "source": "https://dawngis.dlr.de/data/Ceres/mosaic_ceres.php",
+    "download": "https://dawngis.dlr.de/data/Ceres/mosaics/HAMO/clear/Ceres_HAMO_mosaic_global.png",
+    "dataset": "DAWN-A-FC2-5-CERESMOSAIC-V1.0",
+    "credit": "NASA/JPL-Caltech/UCLA/MPS/DLR/IDA"
+  }
+}

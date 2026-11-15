@@ -1,0 +1,162 @@
+/* Shared palette tokens keep DOM sections and the theme-aware canvas in sync. */
+:root {
+  --space-base: #0b1526;
+  --space-panel: #132339;
+  --space-text: #e2e8ef;
+  --space-muted: #b6c6d8;
+  --space-haze: #3d709743;
+  --space-cloud: #244c7240;
+  --space-header: #0e1b2ce8;
+  --accent: #e2b98c;
+}
+html[data-theme="nebula"] {
+  --space-base: #17192f;
+  --space-panel: #252844;
+  --space-text: #ece8f6;
+  --space-muted: #cac6e3;
+  --space-haze: #995cc25c;
+  --space-cloud: #366f9d60;
+  --space-header: #24213be8;
+  --accent: #cbb5ff;
+}
+html, body { background-color: var(--space-base); color: var(--space-text); }
+body::before {
+  background: radial-gradient(ellipse at 80% 15%,var(--space-haze),transparent 48%),
+    radial-gradient(ellipse at 15% 75%,var(--space-cloud),transparent 50%) !important;
+}
+/* Larger controls remain comfortably spaced. Collapse navigation before it can collide. */
+.header-v3 { background: var(--space-header); padding-inline: 3%; gap: 20px; }
+.header-v3 .brand { font-size: 15px; flex-shrink: 0; letter-spacing: 1.4px; }
+.header-v3 .brand small { display: none; }
+.header-v3 nav { font-size: 16px; gap: clamp(14px,1.25vw,25px); letter-spacing: .15px; color: #d2dfeb; }
+.header-v3 nav>a { min-height: 46px; }
+.header-controls { flex-shrink: 0; gap: 10px; }
+.header-controls .theme-toggle, .header-controls .audio-toggle,
+.header-controls select { font-size: 14px; min-height: 42px; }
+.theme-toggle { color: var(--space-text); border-color: #afbfdd66; background: var(--space-panel); }
+.theme-toggle[aria-pressed="true"] { background: #75609c55; border-color: #cbb5ff; }
+.journey-stage .journey-description { font-size: 16px; line-height: 1.75; color: #c6d2df; max-width: 440px; }
+.journey-stage .journey-eyebrow { font-size: 11px !important; letter-spacing: 1.7px !important; }
+.journey-stage .journey-awaits-label { font-size: 11px; color: #d3bb9e; }
+.journey-stage .journey-previews > div { font-size: 12px; color: #d4dfeb; }
+.journey-stage .journey-swipe { font-size: 10px !important; color: #bdcbda; }
+.journey-current span { font-size: 11px; }
+.journey-current strong { font-size: 25px; color: #d3dce5; }
+.journey-chapters button { font-size: 13px; color: #b2c2d4; min-height: 44px; letter-spacing: .5px; }
+.journey-chapters button span { font-size: 10px; color: #9aacbf; }
+/* These three portals are photographic cards, with readable copy below the image. */
+.home-destinations { gap: 22px; margin-top: 50px; }
+.home-destinations a.destination-photo {
+  padding: 0; display: flex; flex-direction: column; gap: 0; overflow: hidden;
+  position: relative; border-radius: 12px; background: var(--space-panel);
+  border: 1px solid #9cb8d34d; box-shadow: 0 16px 40px #03091224;
+}
+.destination-photo>img { display: block; width: 100%; height: 220px; object-fit: cover; object-position: 50% 55%; user-select: none; -webkit-user-drag: none; transition: transform .6s ease; }
+.destination-photo.destination-moon>img { object-position: 50% 56%; }
+.destination-photo.destination-deep-space>img { object-position: 65% 45%; }
+.destination-photo-copy { padding: 24px 26px 22px; }
+.destination-photo-copy h2 { font: 400 40px/1.1 var(--font-display); color: var(--space-text); margin: 0 0 12px; letter-spacing: -.7px; }
+.destination-photo-copy p { font: 400 14px/1.6 var(--font-ui); margin-bottom: 17px; color: var(--space-muted); padding-right: 15px; }
+.destination-photo-copy small { display: block; font: 400 10px/1.5 var(--font-ui); color: var(--space-muted); padding-right: 15px; }
+.destination-photo>svg { position: absolute; right: 20px; bottom: 22px; color: var(--accent); }
+@media(hover:hover) { .destination-photo:hover>img { transform: scale(1.035); } }
+.home-destinations a.destination-photo:hover { border-color: var(--accent); }
+.journey-details-heading>p, .journey-story-copy>p { font-size: 16px; color: var(--space-muted); line-height: 1.8; }
+.journey-story-eyebrow, .journey-details-heading .eyebrow { font-size: 12px; }
+.journey-story-facts strong, .journey-story-facts span { font-size: 13px; line-height: 1.7; }
+.journey-story-link { font-size: 13px; min-height: 46px; }
+/* A visible multi-layer sky replaces the nearly black Deep Space backdrop. */
+.deep-space-page.deep-variant-b { background: var(--space-base); }
+.deep-b-stage {
+  min-height: 850px;
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, .45fr) minmax(0, .55fr);
+  padding: 72px 7% 35px;
+  background: radial-gradient(ellipse at 78% 32%,var(--space-haze),transparent 48%),
+    radial-gradient(ellipse at 28% 88%,var(--space-cloud),transparent 54%),var(--space-base);
+}
+.deep-b-stars { opacity: .85; background: url('/media/archive-starfield.svg') center / cover; }
+.deep-b-stars::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 72% 40%,var(--space-cloud),transparent 50%);
+}
+.deep-b-heading { position: relative; inset: auto; width: 100%; grid-column: 1; grid-row: 1; }
+.deep-b-heading .eyebrow { font-size: 12px; color: #d5ba98; }
+.deep-b-heading h1 { color: var(--space-text); }
+.deep-b-heading>p { font-size: 16px; line-height: 1.8; color: var(--space-muted); max-width: 440px; }
+.deep-b-heading .destination-links>* { font-size: 14px; min-height: 44px; color: var(--space-muted); }
+.deep-b-selected { position: relative; inset: auto; max-width: 100%; grid-column: 1; grid-row: 2; margin-top: 34px; }
+.deep-b-selected .eyebrow { font-size: 11px; line-height: 1.6; color: var(--space-muted); }
+.deep-b-selected h2 { font-size: 44px; }
+.deep-b-selected>p { font-size: 15px; color: var(--space-muted); }
+.deep-b-selected .primary { font-size: 13px; min-height: 50px; background: var(--accent); }
+.deep-b-credit { position: relative; inset: auto; max-width: 100%; grid-column: 2; grid-row: 3; font-size: 10px; line-height: 1.7; color: var(--space-muted); margin: 20px 0; text-align: right; }
+.deep-b-tabs { position: relative; inset: auto; grid-column: 1 / -1; grid-row: 4; margin-top: 20px; }
+.deep-b-credit>span { font-size: 11px; }
+.deep-b-tabs button { background: var(--space-panel); border-color: #9cb8d34d; grid-template-columns: 20px 1fr; }
+.deep-b-tabs strong { font-size: 15px; color: var(--space-text); }
+.deep-b-tabs small { font-size: 10px; letter-spacing: .4px; color: var(--space-muted); }
+.deep-b-tabs button>span { font-size: 11px; color: var(--space-muted); }
+.deep-b-tabs button[aria-pressed="true"] { background: color-mix(in srgb,var(--space-panel),var(--accent) 12%); border-color: var(--accent); }
+.deep-variant-b .deep-card { background: var(--space-panel); }
+.cinematic-pause { background: var(--space-panel); color: var(--space-text); border-color: #a8bfd45c; }
+@media(max-width:1560px) {
+  .header-v3 nav { display: none; }
+  .header-v3 .menu-toggle { display: grid !important; place-items: center; min-width: 44px; min-height: 44px; }
+  .header-v3 nav.open { display: flex; position: absolute; top: 100%; left: 0; right: 0; height: auto; background: var(--space-header); padding: 20px 6%; flex-direction: column; align-items: stretch; gap: 0; }
+  .header-v3 nav.open>a { font-size: 16px !important; padding: 12px 0; height: auto; min-height: 48px; }
+  .header-v3 nav.open .nav-active::after { display: none; }
+}
+@media(max-width:900px) {
+  .deep-b-heading { width: 100%; }
+  .deep-b-heading h1 { font-size: 68px; }
+  .deep-b-selected { max-width: 100%; }
+  .destination-photo>img { height: 190px; }
+  .destination-photo-copy { padding: 20px; }
+  .destination-photo-copy h2 { font-size: 34px; }
+  .deep-b-tabs button { padding: 14px 10px; grid-template-columns: 1fr; gap: 7px; }
+  .deep-b-tabs button>span { display: none; }
+  .deep-b-tabs small { grid-column: 1; }
+}
+@media(max-width:760px) {
+  .home-destinations { grid-template-columns: 1fr; gap: 20px; }
+  .destination-photo>img { height: 240px; }
+}
+@media(max-width:620px) {
+  .header-v3 { padding-inline: 4%; gap: 8px; }
+  .header-v3 .brand { font-size: 14px; }
+  .header-controls { gap: 4px; }
+  .header-controls .theme-toggle, .header-controls .audio-toggle { width: 40px; min-height: 42px; }
+  .header-controls select { font-size: 14px; }
+  .journey-stage .journey-copy { top: 15% !important; }
+  .journey-stage .journey-description { max-width: 335px; font-size: 14px; line-height: 1.65; }
+  .journey-stage .journey-eyebrow { font-size: 10px !important; }
+  .journey-stage .journey-awaits-label { font-size: 10px; }
+  .journey-stage .journey-previews { gap: 8px 14px; }
+  .journey-stage .journey-previews>div { font-size: 11px; }
+  .journey-stage .journey-swipe { font-size: 10px !important; margin-top: 14px; }
+  .journey-chapters { top: auto; bottom: 24px; }
+  .journey-current strong { font-size: 22px; }
+  .journey-chapters button { font-size: 12px; }
+  .journey-chapters nav { gap: 16px; }
+  .journey-current { padding-right: 25%; }
+  .deep-b-stage { height: auto; min-height: 0; padding: 54px 7% 30px; grid-template-columns: minmax(0,1fr); }
+  .deep-b-heading, .deep-b-selected, .deep-b-craft, .deep-b-credit, .deep-b-tabs { position: relative; inset: auto; width: 100%; max-width: none; grid-column: 1; grid-row: auto; }
+  .deep-b-heading h1 { font-size: 62px; }
+  .deep-b-heading>p { font-size: 15px; max-width: none; }
+  .deep-b-heading .eyebrow { font-size: 11px; }
+  .deep-b-craft { height: 300px; margin: 6px 0 20px; }
+  .deep-b-selected h2 { font-size: 40px; }
+  .deep-b-selected>p { font-size: 15px; max-width: none; }
+  .deep-b-selected .eyebrow { font-size: 11px; max-width: none; }
+  .deep-b-selected .primary { font-size: 13px; min-height: 48px; padding: 14px 18px; }
+  .deep-b-credit { font-size: 10px; margin: 24px 0; }
+  .deep-b-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .deep-b-tabs strong { font-size: 14px; }
+  .deep-b-tabs small { font-size: 10px; }
+  .deep-b-tabs button { min-height: 80px; }
+  .deep-b-sun { top: 35%; }
+  .journey-story-copy>p, .journey-details-heading>p { font-size: 15px; }
+}
+@media(prefers-reduced-motion:reduce) { .destination-photo>img { transition: none; } }
