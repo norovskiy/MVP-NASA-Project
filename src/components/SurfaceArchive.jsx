@@ -45,7 +45,7 @@ export default function SurfaceArchive({ mission: m }) {
     } catch {}
   };
   return (
-    <div className="immersive-archive">
+    <div className="immersive-archive" data-assistant-entity={m.id}>
       <section
         className={"surface-immersive" + (panorama ? " has-panorama" : "")+(focusView?" is-focus-view":"")}
         aria-label={t(m.name) + " " + t("Surface archive")}

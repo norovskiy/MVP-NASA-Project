@@ -1,0 +1,9 @@
+{
+  "spacecraft": "NASA Dawn mesh; original geometry preserved in dawn-detailed.glb",
+  "source": "https://science.nasa.gov/3d-resources/dawn/",
+  "original": "dawn.glb",
+  "changes": "Authored illustrative PBR foil microstructure, rear-panel graphite finish and ribbed normal map. No added scientific instruments or engineering dimensions.",
+  "renders": "24 orbit frames at 1024 px and a 1600 px poster, rendered in Blender Cycles from the same derivative mesh.",
+  "background": "../../media/deep-space-atmosphere.webp: AI-generated illustrative space backdrop, not a NASA observation or a measured view from Ceres.",
+  "audio": "../../media/space-ambience.mp3: soundtrack supplied by the project owner."
+}

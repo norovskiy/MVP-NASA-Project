@@ -11,11 +11,12 @@ export default function SpacecraftScene({
   missionId = "pioneer10",
   decorative = false,
   focusIndex = 0,
+  inspection = false,
 }) {
   const host = useRef(null),
     actions = useRef({}),
     [status, setStatus] = useState("loading"),
-    [paused, setPaused] = useState(false);
+    [paused, setPaused] = useState(inspection);
   useEffect(() => {
     if (status === "ready" || status === "fallback")
       actions.current.focus?.(focusIndex);
@@ -26,7 +27,7 @@ export default function SpacecraftScene({
     let active = true,
       cleanup = () => {};
     setStatus("loading");
-    setPaused(false);
+    setPaused(inspection);
     if (webGLUnavailable) {
       setStatus("failed");
       return () => {
@@ -53,15 +54,16 @@ export default function SpacecraftScene({
           setStatus("failed");
           return;
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, inspection ? 2 : 1.5));
         renderer.outputColorSpace = T.SRGBColorSpace;
         renderer.toneMapping = T.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.25;
+        renderer.toneMappingExposure = inspection ? 1 : 1.25;
+        if(inspection){renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;}
         renderer.setClearColor(0x000000, 0);
         mount.appendChild(renderer.domElement);
         const scene = new T.Scene(),
           camera = new T.PerspectiveCamera(35, 1, 0.01, 100);
-        camera.position.set(3.1, 1.5, 5.4);
+        camera.position.set(...(inspection ? [4.5, 2.3, 8.1] : [3.1, 1.5, 5.4]));
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.055;
@@ -76,12 +78,13 @@ export default function SpacecraftScene({
         scene.environment = environment.texture;
         room.dispose();
         pmrem.dispose();
-        scene.environmentIntensity = 0.65;
-        scene.add(new T.HemisphereLight(0xc4d8ff, 0x171622, 1.7));
-        const sun = new T.DirectionalLight(0xffe4be, 3.8);
+        scene.environmentIntensity = inspection ? .28 : .65;
+        scene.add(new T.HemisphereLight(0xc4d8ff, 0x171622, inspection ? .9 : 1.7));
+        const sun = new T.DirectionalLight(0xffe4be, inspection ? 2.6 : 3.8);
         sun.position.set(-4, 5, 5);
+        if(inspection){sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.near=.1;sun.shadow.camera.far=25;sun.shadow.camera.left=-3;sun.shadow.camera.right=3;sun.shadow.camera.top=3;sun.shadow.camera.bottom=-3;sun.shadow.normalBias=.012;sun.shadow.bias=-.0001;}
         scene.add(sun);
-        const rim = new T.DirectionalLight(0x84b5ef, 2.1);
+        const rim = new T.DirectionalLight(0x84b5ef, inspection ? 1 : 2.1);
         rim.position.set(4, -1, -3);
         scene.add(rim);
         // Seeded distant stars: no fabricated telemetry or animated signal beams.
@@ -119,7 +122,7 @@ export default function SpacecraftScene({
         let object,
           frame = 0,
           visible = false,
-          running = true,
+          running = !inspection,
           documentVisible = !document.hidden,
           motion = matchMedia("(prefers-reduced-motion: reduce)").matches,
           last = 0;
@@ -186,17 +189,19 @@ export default function SpacecraftScene({
         actions.current = {
           focus: (index) => {
             destination = new T.Vector3(
-              ...[
+              ...(inspection ? [
+                [1.2, .8, 3.2], [-1, .8, 3], [1, -.3, 3],
+              ] : [
                 [3.1, 1.5, 5.4],
                 [-2, 1.1, 4.5],
                 [1.6, -0.4, 4.2],
-              ][index % 3],
+              ])[index % 3],
             );
             request();
           },
           reset: () => {
             destination = null;
-            camera.position.set(3.1, 1.5, 5.4);
+            camera.position.set(...(inspection ? [1.2, .8, 3.2] : [3.1, 1.5, 5.4]));
             controls.target.set(0, 0, 0);
             controls.update();
             request();
@@ -228,6 +233,7 @@ export default function SpacecraftScene({
               return;
             }
             object = gltf.scene;
+            object.traverse(node=>{if(node.isMesh){node.castShadow=inspection;node.receiveShadow=inspection;for(const material of (Array.isArray(node.material)?node.material:[node.material])){for(const map of [material.map,material.normalMap,material.roughnessMap,material.metalnessMap])if(map)map.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);}}});
             const box = new T.Box3().setFromObject(object),
               size = box.getSize(new T.Vector3()),
               center = box.getCenter(new T.Vector3());
@@ -280,7 +286,7 @@ export default function SpacecraftScene({
       cleanup();
       actions.current = {};
     };
-  }, [model.url, decorative]);
+  }, [model.url, decorative, inspection]);
   return (
     <div
       className={
@@ -307,6 +313,8 @@ export default function SpacecraftScene({
           decorative={decorative}
           actions={actions}
           onReady={() => setStatus("fallback")}
+          initialPaused={inspection}
+          framingScale={inspection ? 1.9 : 1}
         />
       )}
       {!decorative && (

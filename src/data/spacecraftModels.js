@@ -22,8 +22,9 @@ export const spacecraftModels = {
   },
   dawn: {
     startFrame: 12,
-    frames: "/models/deep/dawn-orbit.webp",
-    url: "/models/deep/dawn.glb",
+    frameSize: 1024,
+    frames: "/models/deep/dawn-detailed-orbit.webp",
+    url: "/models/deep/dawn-detailed.glb",
     source: "https://science.nasa.gov/3d-resources/dawn/",
     poster: "/media/dawn.jpg",
     rotation: [0.2, 0.5, 0.1],

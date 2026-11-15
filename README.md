@@ -63,4 +63,3 @@ The homepage, orbital diagrams and globe lighting are visual illustrations. Size
 Read `docs/SPACE-ARCHIVE-UPDATE.md` for the content audit and `public/media/CREDITS.md` for media provenance. Existing legacy assets or unused modules may remain in the source; their presence does not mean they are part of the active page.
 
 Current art direction and rollback reference: `docs/ORBITAL-REDESIGN.md` and `docs/ROLLBACK-CHECKPOINT.json`.
-# MVP-NASA-Project

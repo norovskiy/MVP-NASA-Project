@@ -1,0 +1,111 @@
+/* Homepage finale: one shared scroll timeline; no competing scroll animation. */
+.journey-stage .journey-copy { transition: opacity .55s ease, filter .55s ease; }
+.is-dawn-chapter .journey-copy { opacity: 0; filter: blur(6px); }
+.deep-flight.dawn-arrival button { display:block; position:relative; width:100%; height:100%; padding:0; border:0; background:none; border-radius:50%; }
+.deep-flight.dawn-arrival.is-inviting { pointer-events:auto; }
+.deep-flight.dawn-arrival.is-inviting img { transform:scale(1.4); filter:brightness(1.3) drop-shadow(0 0 26px #8bc8ec33); animation:dawn-beacon 4s ease-in-out infinite; }
+.dawn-touch-hint { position:absolute; bottom:1%; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px; padding:10px 17px; border:1px solid #8bbfd14f; border-radius:30px; color:#d2eaf4; background:#102437d9; font:13px/1.4 var(--font-ui); white-space:nowrap; opacity:0; transition:opacity .5s; }
+.is-inviting .dawn-touch-hint { opacity:1; }
+.dawn-touch-hint i,.dawn-kicker>span,.dawn-historical i { width:6px; height:6px; border-radius:50%; background:#a5d8e8; box-shadow:0 0 13px #a5d8e899; }
+.dawn-invitation { position:absolute; z-index:4; left:6.5%; top:43%; width:min(40vw,550px); transform:translateY(-44%) translateY(18px); opacity:0; visibility:hidden; transition:opacity .65s, transform .65s, visibility .65s; pointer-events:none; }
+.is-dawn-chapter .dawn-invitation { opacity:1; visibility:visible; transform:translateY(-44%); pointer-events:auto; }
+.dawn-kicker { display:flex; align-items:center; gap:10px; color:#adcddc; font:500 11px/1.65 var(--font-ui); letter-spacing:1.9px; text-transform:uppercase; }
+.dawn-invitation h2 { color:#f5f0e8; font:400 clamp(46px,5.3vw,80px)/1.02 var(--font-display); letter-spacing:-.035em; margin:22px 0; }
+.dawn-invitation h2 em { color:#e0bd97; }
+.dawn-invitation>p:not(.dawn-kicker) { color:#c5d4e1; font:15px/1.8 var(--font-ui); max-width:410px; }
+.dawn-approach { display:inline-flex; align-items:center; gap:16px; margin:10px 0 14px; padding:13px 19px 13px 12px; min-height:58px; border:1px solid #96c5dc77; border-radius:8px; background:linear-gradient(110deg,#264b61d9,#152d41d9); color:#f1f8fa; font:500 15px var(--font-ui); box-shadow:0 0 45px #74bede16; transition:background .25s,transform .25s; }
+.dawn-approach:hover { transform:translateY(-3px); background:#305e78; }
+.dawn-invite-orbit { display:grid; place-items:center; width:30px; height:30px; border:1px solid #a0d0e455; border-radius:50%; color:#d0ebf3; }
+.dawn-invitation>small { display:block; color:#9eb5c7; font:12px/1.6 var(--font-ui); }
+/* Native dialog supplies focus containment, Escape, and an inert background. */
+.dawn-deck { position:fixed; inset:0; width:100%; max-width:none; height:100dvh; max-height:none; margin:0; padding:0; border:0; overflow-y:auto; overscroll-behavior:contain; color:#ecf3f7; background:radial-gradient(ellipse at 35% 40%,#17374b80,transparent 60%),radial-gradient(ellipse at 90% 0,#2c3f562b,transparent 50%),#081523; font-family:var(--font-ui); scrollbar-color:#4e728a #081523; }
+.dawn-deck[open] { animation:dawn-approach-in .75s cubic-bezier(.2,.7,.2,1) both; }
+.dawn-deck::backdrop { background:#030b15e8; backdrop-filter:blur(8px); }
+.dawn-deck button:focus-visible,.dawn-deck a:focus-visible { outline:2px solid #b3e4f2; outline-offset:4px; }
+.dawn-deck-header { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; gap:15px; padding:18px 4%; background:#081523ed; border-bottom:1px solid #9cbed52b; backdrop-filter:blur(18px); }
+.dawn-return { display:flex; align-items:center; gap:11px; min-height:44px; padding:5px 10px; color:#d1e4ef; font-size:14px; }
+.dawn-deck-mark { display:flex; align-items:center; gap:14px; font-size:10px; letter-spacing:2px; color:#9db5c6; }
+.dawn-deck-mark i { width:1px; height:14px; background:#8bb7cd55; }
+.dawn-close { display:grid; place-items:center; width:44px; height:44px; border:1px solid #7ca0bd4d; border-radius:50%; }
+.dawn-close:hover,.dawn-return:hover { background:#9dc7db16; }
+.dawn-deck-body { max-width:1600px; margin:auto; padding:36px 5% 20px; }
+.dawn-deck-intro { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:30px; }
+.dawn-deck-intro .dawn-kicker { margin-bottom:14px; }
+.dawn-deck-intro h1 { font:400 clamp(34px,3.6vw,58px)/1.08 var(--font-display); letter-spacing:-.035em; margin:0; color:#f5f3eb; }
+.dawn-deck-intro h1 em { color:#a9ccdc; }
+.dawn-deck-intro>p { max-width:350px; margin:0 0 4px; font-size:14px; line-height:1.8; color:#b7c9d8; }
+.dawn-mode-tabs { display:flex; align-items:center; gap:8px; padding:12px 0; border-top:1px solid #9cbed52b; border-bottom:1px solid #9cbed52b; }
+.dawn-mode-tabs>button { display:flex; align-items:center; gap:10px; padding:13px 19px; min-height:48px; border-radius:7px; color:#abc0d0; font-size:14px; transition:background .2s,color .2s; }
+.dawn-mode-tabs>button>span { color:#7f9caf; font-size:10px; }
+.dawn-mode-tabs>button[aria-pressed=true] { background:#88c2de1a; color:#e0f4ff; box-shadow:inset 0 0 0 1px #91c3dc44; }
+.dawn-mode-tabs>button:hover { background:#88c2de12; }
+.dawn-historical { display:flex; align-items:center; gap:8px; margin-left:auto; font-size:10px; color:#a5bbcb; }
+.dawn-historical i { background:#d6b48b; width:4px; height:4px; box-shadow:none; }
+.dawn-workspace { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr); margin-top:24px; min-height:510px; border:1px solid #91b9d12e; border-radius:12px; overflow:hidden; background:#06111c55; }
+.dawn-visual { position:relative; min-width:0; min-height:510px; display:flex; flex-direction:column; background:radial-gradient(ellipse at 50% 40%,#5b8ba81c,transparent 65%); }
+.dawn-visual:before { content:''; pointer-events:none; position:absolute; inset:40px; border:1px solid #95c3de0c; border-radius:50%; }
+.dawn-visual-caption { position:relative; z-index:2; display:flex; justify-content:space-between; gap:15px; padding:22px; color:#9fbacd; font:10px/1.5 var(--font-ui); letter-spacing:1.5px; }
+.dawn-model-layer { position:absolute; inset:48px 0 105px; transition:opacity .3s; animation:dawn-model-approach 1.1s cubic-bezier(.2,.7,.2,1) both; }
+.dawn-model-layer.is-hidden { visibility:hidden; opacity:0; }
+.dawn-deck .spacecraft-stage { min-height:0; height:100%; background:none; }
+.dawn-deck .spacecraft-legend { top:8px; left:24px; font-size:9px; letter-spacing:1px; }
+.dawn-deck .spacecraft-legend small { color:#adc5d8; font-size:11px; }
+.dawn-deck .spacecraft-tools { bottom:3px; gap:4px; padding:6px; }
+.dawn-deck .spacecraft-tools button { min-width:38px; min-height:38px; }
+.dawn-deck .spacecraft-tools a { font-size:11px; }
+.dawn-loading-poster { width:100%; height:100%; object-fit:contain; }
+.dawn-system-picker,.dawn-life-line { margin-top:auto; display:flex; flex-wrap:wrap; gap:7px; position:relative; z-index:2; padding:15px 20px; background:#071420bb; border-top:1px solid #9cbed51a; }
+.dawn-system-picker button,.dawn-life-line button { display:flex; gap:8px; align-items:center; min-height:40px; padding:9px 12px; color:#b0c7d8; font-size:12px; text-align:left; border:1px solid #a9c9dd25; border-radius:5px; background:#162b3d33; }
+.dawn-system-picker button>span,.dawn-life-line button>span { color:#d7b795; font-size:10px; }
+.dawn-system-picker button[aria-pressed=true],.dawn-life-line button[aria-pressed=true] { border-color:#a6cfe5aa; background:#2a4c64aa; color:white; }
+.dawn-readout { padding:30px; border-left:1px solid #9cbed52b; display:flex; flex-direction:column; align-items:flex-start; background:linear-gradient(150deg,#18314680,#0d203340); }
+.dawn-readout-copy { animation:dawn-copy-in .35s ease both; }
+.dawn-readout .dawn-kicker { font-size:10px; letter-spacing:1.3px; }
+.dawn-readout h2 { font:400 clamp(28px,2.7vw,42px)/1.15 var(--font-display); color:#f3eee6; letter-spacing:-.025em; margin:20px 0; }
+.dawn-readout p { font-size:14px; line-height:1.85; color:#c3d4e0; }
+.dawn-consequence { margin:24px 0; padding:18px 0 0 17px; border-left:2px solid #c6a47d; }
+.dawn-consequence>span { color:#d9ba97; font-size:9px; letter-spacing:1.6px; }
+.dawn-consequence p { font-size:13px; margin:10px 0; }
+.dawn-next-link { display:flex; align-items:center; gap:15px; margin-top:auto; min-height:44px; color:#b6dfed; font-size:13px; border-bottom:1px solid #a6cfdf55; padding:12px 0; }
+.dawn-concept-preview { margin-top:20px; padding-top:22px; border-top:1px solid #9cbed52b; }
+.dawn-concept-preview>span { color:#d7b795; font-size:9px; letter-spacing:1.5px; }
+.dawn-concept-preview h3 { margin:12px 0; font:400 25px/1.25 var(--font-display); color:#eee9df; }
+.dawn-concept-preview p { font-size:13px; }
+.dawn-concept-preview a { display:inline-flex; align-items:center; gap:20px; padding:13px 17px; margin:5px 0 10px; border:1px solid #c9aa8377; color:#f6dec1; border-radius:5px; background:#b7905b14; font-size:14px; }
+.dawn-concept-preview small { display:block; color:#9eb7c9; font-size:11px; line-height:1.6; }
+.dawn-deck-footer { display:flex; justify-content:space-between; gap:20px; padding:23px 0 8px; color:#9fb6c7; font-size:11px; line-height:1.7; }
+.dawn-deck-footer>div { display:flex; gap:20px; flex-wrap:wrap; }
+.dawn-deck-footer a { color:#c1d9e8; }
+.dawn-system-map { position:relative; height:335px; min-height:300px; margin:0 18px; }
+.dawn-system-map svg:not(.lucide) { position:absolute; inset:0; width:100%; height:100%; }
+.dawn-system-map path { stroke:#7ab1cf55; stroke-width:.3; fill:none; stroke-dasharray:1 1; }
+.dawn-map-core { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:#122c3e; padding:15px; border:1px solid #7bb6d07a; border-radius:50%; width:150px; height:150px; box-shadow:0 0 60px #5899ba15; text-align:center; }
+.dawn-map-core strong { font:500 8px/1.5 var(--font-ui); letter-spacing:1px; }
+.dawn-map-core small { font:9px/1.5 var(--font-ui); color:#adc7d7; }
+.dawn-system-map button { position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; gap:7px; align-items:center; justify-content:center; width:140px; min-height:62px; padding:10px; background:#102a3b; border:1px solid #82b5d047; border-radius:7px; color:#c4dbe8; font-size:12px; text-align:center; }
+.dawn-system-map button>span { font-size:9px; letter-spacing:2px; color:#d6b48d; }
+.dawn-system-map button.is-selected { background:#2d5269; border-color:#b4dfee; box-shadow:0 0 25px #95cfe81c; }
+.dawn-schematic-note { position:relative; margin:0 26px 15px; color:#a7bed0; font:11px/1.65 var(--font-ui); text-align:center; }
+.dawn-preparing { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:20px; color:#d2e5f0; background:#0c1b2df5; }
+.dawn-preparing button { padding:12px 25px; border:1px solid #8ab7d466; border-radius:6px; }
+@keyframes dawn-beacon { 50% { filter:brightness(1.3) drop-shadow(0 0 38px #a9d7eb66); } }
+@keyframes dawn-approach-in { from { opacity:0; transform:scale(.92); transform-origin:72% 50%; filter:blur(5px); } to { opacity:1; transform:scale(1); filter:blur(0); } }
+@keyframes dawn-copy-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+@keyframes dawn-model-approach { from { opacity:0; transform:scale(.65); } to { opacity:1; transform:scale(1); } }
+@media(min-width:1500px) { .dawn-visual { min-height:570px; } }
+@media(max-width:950px) { .dawn-historical { display:none; }.dawn-deck-intro { gap:25px; }.dawn-deck-intro>p { max-width:270px; font-size:13px; }.dawn-workspace { grid-template-columns:minmax(0,1.3fr) minmax(260px,1fr); }.dawn-readout { padding:24px; }.dawn-visual-caption { font-size:9px; }.dawn-visual-caption>span:last-child { display:none; }.dawn-system-map button { width:108px; font-size:11px; }.dawn-map-core { width:115px; height:115px; padding:10px; } }
+@media(max-width:680px) {
+  .dawn-invitation { left:6%; top:16%; width:88%; transform:translateY(18px); }.is-dawn-chapter .dawn-invitation { transform:none; }.dawn-invitation h2 { font-size:42px; margin:12px 0; }.dawn-invitation .dawn-kicker { font-size:9px; letter-spacing:1px; }.dawn-invitation>p:not(.dawn-kicker) { font-size:13px; line-height:1.65; max-width:340px; margin-bottom:9px; }.dawn-approach { min-height:48px; font-size:13px; margin:4px 0 8px; padding:8px 13px; }.dawn-invitation>small { font-size:10px; }
+  .is-dawn-chapter .journey-current { display:none; }.deep-flight.dawn-arrival.is-inviting { top:49%; height:32%; left:15%; width:83%; }.dawn-touch-hint { font-size:11px; padding:8px 12px; bottom:0; }
+  .dawn-deck-header { padding:10px 4%; }.dawn-return { font-size:12px; }.dawn-deck-mark { display:none; }.dawn-deck-body { padding:23px 5% 20px; }.dawn-deck-intro { display:block; margin-bottom:22px; }.dawn-deck-intro h1 { font-size:35px; }.dawn-deck-intro>p { max-width:100%; margin-top:17px; font-size:13px; line-height:1.75; }.dawn-mode-tabs { gap:4px; justify-content:space-between; }.dawn-mode-tabs>button { padding:11px 10px; gap:7px; font-size:12px; }.dawn-mode-tabs>button>span { display:none; }.dawn-mode-tabs svg { width:15px; }.dawn-workspace { grid-template-columns:1fr; margin-top:17px; }.dawn-visual { min-height:465px; }.dawn-model-layer { inset:46px 0 119px; }.dawn-visual-caption { padding:17px; font-size:9px; }.dawn-visual-caption>span:last-child { display:block; }.dawn-deck .spacecraft-legend { left:17px; max-width:90%; }.dawn-deck .spacecraft-tools { bottom:10px; }.dawn-deck .spacecraft-tools button { min-width:34px; min-height:34px; }.dawn-deck .spacecraft-tools a { font-size:10px; padding-inline:6px; }.dawn-system-picker,.dawn-life-line { padding:12px; gap:6px; }.dawn-system-picker button { font-size:11px; padding:9px; }.dawn-readout { border-left:0; border-top:1px solid #9cbed52b; padding:25px; }.dawn-readout h2 { font-size:32px; }.dawn-readout p { font-size:14px; }.dawn-deck-footer { display:block; }.dawn-deck-footer>div { margin-top:12px; gap:18px; }.dawn-map-core { width:110px; height:110px; }.dawn-system-map { margin:0 7px; height:310px; }.dawn-system-map button { width:100px; min-height:65px; }.dawn-mode-systems .dawn-visual { min-height:490px; }.dawn-life-line button { font-size:11px; flex:1; }.dawn-mode-life .dawn-visual { min-height:400px; }.dawn-mode-life .dawn-model-layer { bottom:80px; }
+}
+@media(max-height:700px) and (min-width:681px) { .dawn-invitation h2 { font-size:48px; }.dawn-invitation>p:not(.dawn-kicker) { font-size:13px; }.dawn-invitation { top:43%; }.dawn-deck-intro h1 { font-size:38px; } }
+@media(prefers-reduced-motion:reduce) { .dawn-deck[open],.is-inviting img,.dawn-readout-copy,.dawn-model-layer { animation:none!important; }.dawn-invitation,.journey-stage .journey-copy { transition:none; } }
+/* Illustrative deep-space plate, with an opaque reading surface for the text. */
+.dawn-deck { background:linear-gradient(110deg,#06111cdb,#0a1928f2 80%),url('/media/deep-space-atmosphere.webp') center/cover fixed,#06111c; }
+.dawn-visual { background:linear-gradient(180deg,#06101b30,#06101b08 50%,#06101b99),url('/media/deep-space-atmosphere.webp') 40% center/cover,#030810; }
+.dawn-visual:before { border:0; background:radial-gradient(ellipse at 55% 54%,#94bbdf0a,transparent 62%); }
+.dawn-visual-caption { background:linear-gradient(#07131ed9,transparent); text-shadow:0 1px 5px #000; }
+.dawn-readout { background:linear-gradient(140deg,#102334f7,#0b1928fa); }
+.dawn-deck .spacecraft-legend { text-shadow:0 1px 5px #000; }
+.dawn-system-map button,.dawn-map-core { box-shadow:0 8px 30px #0005; }

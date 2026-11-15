@@ -1,29 +1,9 @@
-import {Suspense,lazy,useEffect,useRef,useState} from 'react';
-import {Volume2,VolumeX,Menu,X,Orbit,Palette,SlidersHorizontal} from 'lucide-react';
-import {motion} from 'motion/react';
-import IconButton from '@mui/material/IconButton';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-const VolumePanel=lazy(()=>import('./VolumePanel'));
+import AmbientSound from './AmbientSound';
+import {useEffect,useState} from 'react';
+import {Menu,X,Orbit,Palette} from 'lucide-react';
 import {Link,useLocation} from 'react-router-dom';
 import {useLanguage,t} from '../i18n';
-const buttonMotion={whileHover:{y:-2,scale:1.035},whileTap:{scale:.94},transition:{type:'spring',stiffness:430,damping:24}};
 export function ExperienceHeader(){const {lang,setLanguage}=useLanguage();const [open,setOpen]=useState(false);const [nebula,setNebula]=useState(()=>{try{return localStorage.getItem('mars-explorer-theme')==='nebula'}catch{return false}});const {pathname}=useLocation();
  // Keep the selected color theme across pages and future visits.
  useEffect(()=>{document.documentElement.dataset.theme=nebula?'nebula':'midnight';try{localStorage.setItem('mars-explorer-theme',nebula?'nebula':'midnight')}catch{}},[nebula]);
  useEffect(()=>setOpen(false),[pathname]);useEffect(()=>{const esc=e=>{if(e.key==='Escape')setOpen(false)};window.addEventListener('keydown',esc);return()=>window.removeEventListener('keydown',esc)},[]);const links=[['/','The journey'],['/explore/moon','Planet explorer'],['/missions','The archive'],['/explore/deep-space','Deep Space'],['/robots','Rovers & robots'],['/concepts','NX1 & NX2'],['/solar-system','Solar system'],['/about','About us']];return <header className="site-shell-header"><div className="site-header-top"><Link className="site-brand" to="/" aria-label={t('Mars Explorer home')}><Orbit size={28}/><span>MARS <b>EXPLORER</b></span></Link><div className="site-header-controls"><AmbientSound/><button className="site-theme" onClick={()=>setNebula(v=>!v)} aria-label={t('Switch to galaxy colors')} aria-pressed={nebula}><Palette size={19}/><span>{t(nebula?'Galaxy':'Midnight')}</span></button><select value={lang} aria-label={t('Language')} onChange={e=>setLanguage(e.target.value)}><option value="en">ENG</option><option value="ru">RU</option><option value="tg">TJK</option></select><button className="site-menu" aria-label={t(open?'Close menu':'Open menu')} aria-expanded={open} onClick={()=>setOpen(!open)}>{open?<X size={22}/>:<Menu size={22}/>}</button></div></div><nav className={'site-header-nav'+(open?' expanded':'')} aria-label={t('Main navigation')}>{links.map(([path,label])=><Link key={path} aria-current={pathname===path?'page':undefined} to={path}>{t(label)}</Link>)}</nav></header>}
-
-function AmbientSound(){const [on,setOn]=useState(false),[volume,setVolume]=useState(.2),[error,setError]=useState(false);const audio=useRef(null),anchor=useRef(null),closeTimer=useRef(null);
- const [volumeOpen,setVolumeOpen]=useState(false);
- const revealVolume=()=>{clearTimeout(closeTimer.current);if(on)setVolumeOpen(true)};
- const hideVolume=()=>{closeTimer.current=setTimeout(()=>setVolumeOpen(false),180)};
- useEffect(()=>{if(!on)setVolumeOpen(false)},[on]);useEffect(()=>()=>clearTimeout(closeTimer.current),[]);
- const toggle=async()=>{try{if(!audio.current||audio.current.ctx.state==='closed'){const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)throw Error('Audio unavailable');const ctx=new Ctx();const master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);[55,82.4069,110,164.8138].forEach((freq,i)=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.value=freq;osc.detune.value=i%2?-3:3;gain.gain.value=[.12,.055,.025,.012][i];osc.connect(gain);gain.connect(master);osc.start();const lfo=ctx.createOscillator(),depth=ctx.createGain();lfo.frequency.value=.04+i*.009;depth.gain.value=.008;lfo.connect(depth);depth.connect(gain.gain);lfo.start()});const buffer=ctx.createBuffer(1,ctx.sampleRate*8,ctx.sampleRate),data=buffer.getChannelData(0);let last=0;for(let i=0;i<data.length;i++){last=(last+.02*(Math.random()*2-1))/1.02;data[i]=last*.3}const noise=ctx.createBufferSource(),filter=ctx.createBiquadFilter();noise.buffer=buffer;noise.loop=true;filter.type='lowpass';filter.frequency.value=260;noise.connect(filter);filter.connect(master);noise.start();audio.current={ctx,master}}const {ctx,master}=audio.current;if(on){master.gain.setTargetAtTime(0,ctx.currentTime,.2);setOn(false)}else{await ctx.resume();master.gain.setTargetAtTime(volume*.65,ctx.currentTime,.8);setOn(true)}setError(false)}catch{setError(true)}};
- useEffect(()=>{if(audio.current&&on)audio.current.master.gain.setTargetAtTime(volume*.65,audio.current.ctx.currentTime,.1)},[volume,on]);
- useEffect(()=>{const visibility=()=>{if(!audio.current||audio.current.ctx.state==='closed')return;if(document.hidden)audio.current.ctx.suspend();else if(on)audio.current.ctx.resume().catch(()=>setOn(false))};document.addEventListener('visibilitychange',visibility);return()=>document.removeEventListener('visibilitychange',visibility)},[on]);useEffect(()=>()=>{audio.current&&audio.current.ctx.state!=='closed'&&audio.current.ctx.close().catch(()=>{})},[]);
- // The volume panel never occupies the mute button's hit area.
- return <ClickAwayListener onClickAway={()=>setVolumeOpen(false)}><div className="sound-control" onMouseEnter={revealVolume} onMouseLeave={hideVolume} onKeyDown={e=>{if(e.key==='Escape')setVolumeOpen(false)}}>
- <IconButton className="audio-toggle" onClick={toggle} aria-label={t(on?'Mute ambience':'Enable quiet ambience')} aria-pressed={on} title={t(error?'Audio unavailable':on?'Mute ambience':'Enable quiet ambience')}>{on?<Volume2 size={17}/>:<VolumeX size={17}/>}<span>{t(on?'Sound on':'Sound off')}</span></IconButton>
- {on&&<IconButton ref={anchor} className="audio-settings" aria-label={t('Ambient volume')} aria-expanded={volumeOpen} onClick={()=>setVolumeOpen(v=>!v)}><SlidersHorizontal size={15}/></IconButton>}
- {on&&volumeOpen&&<Suspense fallback={null}><VolumePanel anchor={anchor.current} volume={volume} onChange={setVolume} onEnter={revealVolume} onLeave={hideVolume}/></Suspense>}
- </div></ClickAwayListener>
-}

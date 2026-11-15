@@ -9,7 +9,7 @@ test('every reported page instruction resolves without a language model',()=>{
  for(const q of ['can you turn to the solar system page','show me planets','Tara покажи планеты','переведи на солнечную систему'])assert.equal(resolveSiteAction(q).path,'/solar-system',q);
  for(const q of ['turn to the page about us','Okay tell about us','переведи хотя бы на about us','отведи меня на о нас'])assert.equal(resolveSiteAction(q).path,'/about',q);
  for(const q of ['show me robots','go to robots','turn to the robots page'])assert.equal(resolveSiteAction(q).path,'/robots',q);
- assert.equal(resolveSiteAction('show Mars').path,'/solar-system?body=mars');
+ assert.equal(resolveSiteAction('show Mars').path,'/explore/mars');
  assert.equal(resolveSiteAction('show Jupiter').entity,'jupiter');
  assert.equal(resolveSiteAction('tell me about solar system'),null);
 });
@@ -18,7 +18,7 @@ test('site explanations and uncertain speech are grounded, with no invented fami
  assert.match(siteGuideAnswer('говори о сайте',{lang:'ru'}),/Норов Мухаммад/);
  const answer=siteGuideAnswer('explain about solar system and the shoulder plate');assert.match(answer,/did not understand/);assert.doesNotMatch(answer,/spacesuit/);
  assert.match(siteGuideAnswer('Dad made it'),/Do you mean/);
- assert.match(siteGuideAnswer('what AI model do you use'),/we did not train/);
+ assert.match(siteGuideAnswer('what AI model do you use'),/No language-model download/);
 });
 test('Mars questions cannot retrieve old Perseverance or unrelated candy and songs',()=>{
  const docs=[{title:'Mars',entity:'mars',text:'Planet'},{title:'Perseverance',entity:'perseverance',text:'Mars rover'}];assert.deepEqual(retrieve('Explain Mars',docs,'perseverance').map(d=>d.entity),['mars']);

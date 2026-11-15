@@ -1,3 +1,4 @@
+import {prepareSpeechAudio} from './speechCleanup.js';
 import {speechThreshold,shouldInterrupt} from './speechGate.js';
 let worker,ready=false,loading,seq=0,modelQuality='accurate';
 const jobs=new Map();
@@ -19,9 +20,9 @@ export async function createSpeechInput({onText,onState,onProgress,onError,isPau
  onState('loading');await loadSpeechInput(onProgress,quality);if(stream.getTracks().every(t=>t.readyState==='ended'))throw new Error('CANCELLED');
  context=new AudioContext();await context.resume();await context.audioWorklet.addModule('/tara/capture.js');
  source=context.createMediaStreamSource(stream);node=new AudioWorkletNode(context,'tara-capture');const mute=context.createGain();mute.gain.value=0;source.connect(node);node.connect(mute);mute.connect(context.destination);
- async function decode(){const parts=frames,total=length,speech=voiced,wasSpeech=announced;clear();if((isPlayback()&&!wasSpeech)||speech<.25||total/context.sampleRate<.4)return;decoding=true;onState('transcribing');try{const audio=new Float32Array(total);let offset=0;for(const part of parts){audio.set(part,offset);offset+=part.length}const text=await call('transcribe',{audio:resample(audio,context.sampleRate)});if(!destroyed&&!paused&&!isPaused()&&text?.trim())onText(text.trim())}catch(e){if(!destroyed)onError(e)}finally{decoding=false;if(!destroyed)onState('listening')}}
+ async function decode(){const parts=frames,total=length,speech=voiced,wasSpeech=announced;clear();if((isPlayback()&&!wasSpeech)||speech<.25||total/context.sampleRate<.4)return;decoding=true;onState('transcribing');try{const audio=new Float32Array(total);let offset=0;for(const part of parts){audio.set(part,offset);offset+=part.length}const text=await call('transcribe',{audio:prepareSpeechAudio(resample(audio,context.sampleRate))});if(!destroyed&&!paused&&!isPaused()&&text?.trim())onText(text.trim())}catch(e){if(!destroyed)onError(e)}finally{decoding=false;if(!destroyed)onState('listening')}}
  node.port.onmessage=({data})=>{if(destroyed||paused||decoding||isPaused()){clear();return}let energy=0;for(const n of data)energy+=n*n;const playback=isPlayback();if(playback&&!lastPlayback)playbackAt=Date.now();lastPlayback=playback;const loud=Math.sqrt(energy/data.length)>speechThreshold(sensitivity,playback,echoGuard),seconds=data.length/context.sampleRate;
- if(!frames.length){pre.push(data);if(pre.length>3)pre.shift();if(!loud)return;frames=pre.slice();length=frames.reduce((n,a)=>n+a.length,0);pre=[];voiced=seconds;return}
+ if(!frames.length){pre.push(data);if(pre.length>Math.ceil(context.sampleRate*.3/2048))pre.shift();if(!loud)return;frames=pre.slice();length=frames.reduce((n,a)=>n+a.length,0);pre=[];voiced=seconds;return}
  frames.push(data);length+=data.length;voiced+=loud?seconds:0;silence=loud?0:silence+seconds;if(!announced&&loud&&shouldInterrupt({voicedSeconds:voiced,playbackAgeMs:playback?Date.now()-playbackAt:1000,echoGuard,enabled:!playback||bargeIn})){announced=true;onSpeechStart()}if(silence>silenceMs/1000||length/context.sampleRate>=14)decode()};
  onState('listening');return control;
  }catch(e){control.destroy();throw e}

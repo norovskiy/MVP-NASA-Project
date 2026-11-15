@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
 import { clamp, smoothstep } from "../scene/noise";
+import { useLanguage } from "../i18n";
+import { ArrowUpRight } from "lucide-react";
 // Actual NASA Dawn mesh rendered once with the same upper-right key as the planets.
 // Camera travel is driven by the canvas timeline, so reverse scroll has the same composition.
-export default function DeepFlight({ timeline }) {
+export default function DeepFlight({ timeline, interactive = false, onInspect }) {
   const element = useRef(null);
+  const lang = useLanguage(s => s.lang);
   useEffect(
     () =>
       timeline.subscribe((p) => {
@@ -17,13 +20,16 @@ export default function DeepFlight({ timeline }) {
     [timeline],
   );
   return (
-    <div ref={element} className="deep-flight dawn-arrival" aria-hidden="true">
+    <div ref={element} className={"deep-flight dawn-arrival" + (interactive ? " is-inviting" : "")}>
+      <button disabled={!interactive} onClick={onInspect} aria-label={lang === "ru" ? "Изучить аппарат Dawn" : "Explore the Dawn spacecraft"}>
       <img
-        src="/models/deep/dawn-cinematic.webp"
+        src="/models/deep/dawn-detailed-cinematic.webp"
         alt=""
         draggable="false"
         decoding="async"
       />
+      <span className="dawn-touch-hint" aria-hidden="true"><i />{lang === "ru" ? "Нажми на меня" : "Come closer"}<ArrowUpRight size={14}/></span>
+      </button>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+{
+  "landscapes": {
+    "mars-real.webp": {
+      "source": "https://science.nasa.gov/resource/panoramic-view-from-rocknest-position-of-curiosity-mars-rover/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/mars/downloadable_items/3/6/36567_PIA16453-FigA_sol6_from_Rocknest_raw.jpg",
+      "credit": "NASA/JPL-Caltech/MSSS",
+      "description": "Curiosity Mastcam mosaic, Rocknest, Gale crater, October–November 2012; raw camera color. Resized and converted to WebP; scene content preserved."
+    },
+    "moon-real.webp": {
+      "source": "https://science.nasa.gov/asset/hubble/an-astronauts-snapshot-of-the-moon/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/missions/hubble/releases/2005/10/STScI-01EVVM8B9K72PDCTPJD4JPHQSB.tif/jcr:content/renditions/9779x2085.jpg",
+      "credit": "NASA/ESA/Apollo 17",
+      "description": "Apollo 17 photographic panorama of Taurus–Littrow. Resized and converted to WebP; no equipment or astronauts were removed."
+    }
+  },
+  "hardware": "Original NX1/NX2 team concepts. The procedural models and their rendered views are explanatory artwork, not engineering CAD, validated flight hardware or NASA equipment. The lunar backdrop is a visual setting, not a claim of validated lunar operation.",
+  "blueprints": "Original team-generated design sheets preserved unchanged. Dimensions and performance annotations are proposed targets, not measured specifications.",
+  "render_pipeline": "export-nx-geometry.mjs exports the same React concept geometry. render-nx-concepts.py produces exterior and illustrative internal views; shallow surface fittings and material treatment are illustrative."
+}

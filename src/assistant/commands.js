@@ -9,7 +9,7 @@ export function commandFor(text,{name='Tara',robotIds=[],missionIds=[]}={}){
  // Require a dismissal phrase, not a question mentioning the word "disconnect".
  if(/^(?:пожалуйста )?(?:отключись|выключись|можешь идти|все можешь идти|все пока|иди отдыхай|go to sleep|shut down|goodbye|disconnect)(?: пожалуйста)?$/.test(q)||names.some(n=>q===`${n} все`||q.startsWith(n+' ')&&/^(?:все )?(?:можешь идти|отключись|выключись|иди отдыхай|пока|go to sleep|shut down|goodbye|disconnect)(?: пожалуйста)?$/.test(q.slice(n.length+1))))return {type:'dismiss'};
  for(const n of names)if(q.startsWith(n+' ')){q=q.slice(n.length+1).trim();break}
- if(/^(?:стоп|замолчи|помолчи|stop|stop speaking|be quiet)$/.test(q))return {type:'stop'};
+ if(/^(?:стоп|стой|подожди|замолчи|помолчи|stop|wait|stop speaking|be quiet)$/.test(q))return {type:'stop'};
  if(/(?:отвечай|говори|переключи|switch|speak|answer).*(?:английск|english)/.test(q))return {type:'language',lang:'en'};
  if(/(?:отвечай|говори|переключи|switch|speak|answer).*(?:русск|russian)/.test(q))return {type:'language',lang:'ru'};
  if(/^(?:назад|вернись назад|go back|back)$/.test(q))return {type:'back'};

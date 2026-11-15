@@ -32,6 +32,7 @@ export function chatCommand(text,name='Tara'){
 export function replyLanguage(text,name='Tara',fallback='en'){
  const q=withoutAddress(text,name);
  if(/[а-яё]/i.test(q))return 'ru';
+ if(/^(?:apollo\s*\d+|nx\s*[12]|perseverance|curiosity|opportunity|spirit|insight|ingenuity|sojourner|pioneer\s*\d+|dawn|near(?: shoemaker)?|kepler)$/.test(q))return fallback;
  if(/[a-z]/i.test(q))return 'en';
  return fallback;
 }

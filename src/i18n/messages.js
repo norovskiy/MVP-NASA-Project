@@ -6,6 +6,8 @@ import {factMessages} from './factMessages';
 import {extraMessages} from './robotMessages';
 // English source strings map to Russian and Tajik. Proper mission names stay unchanged.
 export const messages={
+'Sound ready':['Звук готов','Садо омода'],
+'Sound starts after your first interaction':['Звук начнётся после первого нажатия','Садо пас аз пахши аввал оғоз мешавад'],
 'Focus view':['Убрать текст с фото','Намоиши бе матн'],
 'Show information':['Показать информацию','Нишон додани маълумот'],
 'View full photograph':['Открыть полное фото','Кушодани акси пурра'],

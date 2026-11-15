@@ -25,7 +25,7 @@ export default function CinematicCraft({ missionId }) {
     >
       <img
         key={missionId}
-        src={`/models/deep/${family(missionId)}-cinematic.webp`}
+        src={`/models/deep/${missionId === "dawn" ? "dawn-detailed" : family(missionId)}-cinematic.webp`}
         alt={t("NASA model in an illustrative lighting setup")}
         draggable="false"
         decoding="async"

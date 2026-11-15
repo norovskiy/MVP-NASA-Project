@@ -1,10 +1,10 @@
-import {conceptLibrary} from '../data/concepts';
-import {missions} from '../data/missions';
-import {robots,roverParts} from '../data/robots';
-import {planets} from '../data/planets';
-import {solarBodies} from '../data/solar';
-import {facts} from '../data/facts';
-import {messages} from '../i18n/messages';
+import {conceptLibrary} from '../data/concepts.js';
+import {missions} from '../data/missions.js';
+import {robots,roverParts} from '../data/robots.js';
+import {planets} from '../data/planets.js';
+import {solarBodies} from '../data/solar.js';
+import {facts} from '../data/facts.js';
+import {messages} from '../i18n/messages.js';
 export function siteLibrary(lang="en"){
  const t=value=>typeof value==='string'&&lang==='ru'?(messages[value]?.[0]||value):value;
  const docs=[];

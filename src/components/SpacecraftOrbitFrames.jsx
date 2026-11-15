@@ -8,6 +8,8 @@ export default function SpacecraftOrbitFrames({
   decorative,
   actions,
   onReady,
+  initialPaused = false,
+  framingScale = 1,
 }) {
   const canvas = useRef(null),
     drag = useRef(null);
@@ -18,8 +20,8 @@ export default function SpacecraftOrbitFrames({
     let active = true,
       frame = 0,
       angle = model.startFrame || 0,
-      zoom = 1,
-      running = true,
+      zoom = framingScale,
+      running = !initialPaused,
       visible = false,
       loaded = false,
       last = 0;
@@ -34,6 +36,7 @@ export default function SpacecraftOrbitFrames({
         i = Math.floor(a),
         f = a - i,
         n = (i + 1) % 24,
+        frameSize = model.frameSize || 640,
         w = node.width,
         h = node.height,
         size = Math.min(w, h) * zoom;
@@ -41,10 +44,10 @@ export default function SpacecraftOrbitFrames({
       ctx.globalAlpha = 1 - f;
       ctx.drawImage(
         img,
-        (i % 6) * 640,
-        Math.floor(i / 6) * 640,
-        640,
-        640,
+        (i % 6) * frameSize,
+        Math.floor(i / 6) * frameSize,
+        frameSize,
+        frameSize,
         (w - size) / 2,
         (h - size) / 2,
         size,
@@ -54,10 +57,10 @@ export default function SpacecraftOrbitFrames({
       ctx.globalAlpha = f;
       ctx.drawImage(
         img,
-        (n % 6) * 640,
-        Math.floor(n / 6) * 640,
-        640,
-        640,
+        (n % 6) * frameSize,
+        Math.floor(n / 6) * frameSize,
+        frameSize,
+        frameSize,
         (w - size) / 2,
         (h - size) / 2,
         size,
@@ -76,7 +79,7 @@ export default function SpacecraftOrbitFrames({
     actions.current = {
       reset: () => {
         angle = model.startFrame || 0;
-        zoom = 1;
+        zoom = framingScale;
         request();
       },
       pause: (v) => {
@@ -84,12 +87,12 @@ export default function SpacecraftOrbitFrames({
         request();
       },
       zoom: (factor) => {
-        zoom = Math.max(0.6, Math.min(2, zoom / factor));
+        zoom = Math.max(0.6, Math.min(2 * framingScale, zoom / factor));
         request();
       },
       focus: (i) => {
         angle = (model.startFrame || 0) + i * 6;
-        zoom = i ? 1.15 : 1;
+        zoom = framingScale * (i ? 1.15 : 1);
         request();
       },
       turn: (delta) => {
@@ -145,7 +148,7 @@ export default function SpacecraftOrbitFrames({
       document.removeEventListener("visibilitychange", visibility);
       media.removeEventListener("change", motion);
     };
-  }, [model.frames]);
+  }, [model.frames, model.frameSize, initialPaused, framingScale]);
   return (
     <canvas
       ref={canvas}

@@ -128,7 +128,7 @@ export function DeepSpaceOverview() {
 export function DeepSpaceDetail({ mission: m }) {
   const [part, setPart] = useState(0);
   return (
-    <div className="deep-space-page deep-detail" key={m.id}>
+    <div className="deep-space-page deep-detail" key={m.id} data-assistant-entity={m.id}>
       <div className="record-toolbar">
         <Link to="/explore/deep-space">
           <ArrowLeft size={15} />
